@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "cypress run --browser chrome --headed --no-exit"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.4",
+    "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -20,14 +23,23 @@
     "@types/react-dom": "18.0.10",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.2",
-    "framer-motion": "^8.4.7",
+    "framer-motion": "^8.5.5",
+    "graphql": "^16.6.0",
     "next": "13.1.2",
     "next-auth": "^4.18.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "react-icons": "^4.7.1",
     "typescript": "4.9.4"
   },
   "devDependencies": {
-    "prisma": "^4.8.1"
+    "@testing-library/cypress": "^9.0.0",
+    "@types/jest": "^29.2.6",
+    "cypress": "^12.5.1",
+    "cypress-social-logins": "^1.14.0",
+    "jsonwebtoken": "^9.0.0",
+    "prisma": "^4.9.0",
+    "ts-jest": "^29.0.5"
   }
 }
