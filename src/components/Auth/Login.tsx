@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { FaUserAlt, FaLock } from 'react-icons/fa'
+import UserOperations from '@/src/graphql/operations/user'
 import {
   Flex,
   Heading,
@@ -18,14 +19,30 @@ import {
   InputRightElement,
   Image
 } from '@chakra-ui/react'
+import { useMutation } from '@apollo/client'
+import { CreateUserData, CreateUserInput } from '@/src/util/types'
 
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleShowClick = () => setShowPassword(!showPassword)
+
+  const onSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+
+    //signIn here comes from next-auth, not graphql
+    const res = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+      callbackUrl: `${window.location.origin}`
+    })
+  }
 
   return (
     <Flex
@@ -45,7 +62,7 @@ const Login = () => {
         <Avatar bg='teal.500' />
         <Heading color='teal.400'>Welcome</Heading>
         <Box minW={{ base: '90%', md: '468px' }}>
-          <form>
+          <form onSubmit={onSubmit}>
             <Stack
               spacing={4}
               p='1rem'
@@ -65,6 +82,8 @@ const Login = () => {
                     _placeholder={{ color: 'gray.300' }}
                     border='1px'
                     borderColor='gray.200'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </InputGroup>
               </FormControl>
@@ -81,6 +100,8 @@ const Login = () => {
                     _placeholder={{ color: 'gray.300' }}
                     border='1px'
                     borderColor='gray.200'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <InputRightElement width='4.5rem'>
                     <Button h='1.75rem' size='sm' onClick={handleShowClick}>
