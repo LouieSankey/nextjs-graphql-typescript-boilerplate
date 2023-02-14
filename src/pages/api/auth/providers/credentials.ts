@@ -24,7 +24,6 @@ export default CredentialsProvider({
     })
     const { data } = response
     const user = data?.signUp
-    console.log('🚀 ~ file: credentials.ts ~ line 27 ~ authorize ~ user', user)
 
     if (user) {
       return user

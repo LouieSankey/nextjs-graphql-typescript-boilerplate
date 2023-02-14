@@ -3,9 +3,6 @@ import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import credentialsProvider from './providers/credentials'
-import jwt from 'jsonwebtoken'
-import { JWT } from 'next-auth/jwt'
-import { getSession } from 'next-auth/react'
 
 const prisma = new PrismaClient()
 
@@ -23,9 +20,6 @@ export default NextAuth({
   ],
   secret: process.env.JWT_SECRET,
   callbacks: {
-    signIn: async () => {
-      return true
-    },
     jwt: async ({ token, user }) => {
       user && (token.user = user)
       return token

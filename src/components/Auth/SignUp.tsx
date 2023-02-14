@@ -20,14 +20,13 @@ import {
   Image,
   Divider,
   Text,
-  Checkbox,
   FormLabel
 } from '@chakra-ui/react'
 
 const CFaUserAlt = chakra(FaUserAlt)
 const CFaLock = chakra(FaLock)
 
-const Login = () => {
+const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -48,20 +47,17 @@ const Login = () => {
 
   return (
     <>
-      <Heading color='teal.400'>Welcome</Heading>
+      <Heading color='teal.400'>Sign Up</Heading>
       <Box minW={{ base: '90%', md: '468px' }}>
         <form onSubmit={onSubmit}>
-          <Stack
-            spacing={4}
-            p='1rem'
-            // backgroundColor='whiteAlpha.900'
-          >
+          <Stack spacing={4} p='1rem' backgroundColor='whiteAlpha.900'>
             <FormControl>
               <FormLabel color='black'>Email</FormLabel>
               <InputGroup>
                 <Input
                   type='email'
                   color='blackAlpha.800'
+                  _placeholder={{ color: 'gray.300' }}
                   border='1px'
                   borderColor='gray.200'
                   value={email}
@@ -71,10 +67,10 @@ const Login = () => {
             </FormControl>
             <FormControl>
               <FormLabel color='black'>Password</FormLabel>
-
               <InputGroup>
                 <Input
                   type={showPassword ? 'text' : 'password'}
+                  placeholder=''
                   color='blackAlpha.800'
                   _placeholder={{ color: 'gray.300' }}
                   border='1px'
@@ -83,31 +79,18 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </InputGroup>
-              <Checkbox
-                defaultChecked
-                marginTop='3'
-                marginLeft='1'
-                color='black'
-              >
-                Remember me?
-              </Checkbox>
-              <Button
-                borderRadius={0}
-                marginTop='5'
-                type='submit'
-                variant='solid'
-                colorScheme='teal'
-                width='full'
-                color='white'
-              >
-                LOGIN
-              </Button>
-              {/* <Text color='black'> Forgot Password?</Text> */}
-              <FormHelperText textAlign='right'>
-                <Link color='black'>Forgot Password?</Link>
-              </FormHelperText>
             </FormControl>
 
+            <Button
+              borderRadius={0}
+              type='submit'
+              variant='solid'
+              colorScheme='teal'
+              width='full'
+              color='white'
+            >
+              Sign Up
+            </Button>
             <Flex align='center'>
               <Divider borderColor='gray.500' />
               <Text padding='2' color='gray.500' fontSize='sm'>
@@ -119,7 +102,7 @@ const Login = () => {
               onClick={() => signIn('google')}
               border='1px'
               color='black'
-              borderColor='gray.300'
+              borderColor='black'
               className='signin-button'
               leftIcon={
                 <Image height='20px' src='/google.png' alt='google logo' />
@@ -134,4 +117,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default SignUp

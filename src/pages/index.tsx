@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish
   const { data: session } = useSession()
 
-  console.log('session on NextPage', session)
+  console.log('the users session: ', session)
 
   //after we update our username, this is how we let the client know
   const reloadSession = () => {
