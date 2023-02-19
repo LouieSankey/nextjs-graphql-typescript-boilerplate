@@ -15,8 +15,17 @@ export interface SignUpInput {
   emailVerified?: String
 }
 
+export interface SignInInput {
+  password: String
+  email: String
+}
+
 export interface SignUpResponse {
   signUp: User
+}
+
+export interface SignInResponse {
+  signIn: User
 }
 
 export interface User {

@@ -2,7 +2,8 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
-import credentialsProvider from './providers/credentials'
+import signInProvider from '@/src/providers/signInProvider'
+import signUpProvider from '@/src/providers/signUpProvider'
 
 const prisma = new PrismaClient()
 
@@ -12,7 +13,8 @@ export default NextAuth({
     strategy: 'jwt'
   },
   providers: [
-    credentialsProvider,
+    signInProvider,
+    signUpProvider,
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string

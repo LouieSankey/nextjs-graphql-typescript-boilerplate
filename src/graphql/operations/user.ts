@@ -2,7 +2,15 @@
 import { gql } from '@apollo/client'
 
 const UserOperations = {
-  Queries: {},
+  Queries: {
+    getUser: gql`
+      query getUser($email: String!) {
+        getUser(email: $email) {
+          email
+        }
+      }
+    `
+  },
   Mutations: {
     signUp: gql`
       mutation signUp($email: String!, $password: String!) {

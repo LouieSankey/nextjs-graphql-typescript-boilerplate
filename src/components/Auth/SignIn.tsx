@@ -1,44 +1,32 @@
-import { useState } from 'react'
-import { signIn } from 'next-auth/react'
-import { FaUserAlt, FaLock } from 'react-icons/fa'
-import UserOperations from '@/src/graphql/operations/user'
 import {
-  Flex,
-  Heading,
-  Input,
-  Button,
-  InputGroup,
-  Stack,
-  InputLeftElement,
-  chakra,
   Box,
-  Link,
-  Avatar,
+  Button,
+  Checkbox,
+  Divider,
+  Flex,
   FormControl,
   FormHelperText,
-  InputRightElement,
+  FormLabel,
   Image,
-  Divider,
-  Text,
-  Checkbox,
-  FormLabel
+  Input,
+  InputGroup,
+  Link,
+  Stack,
+  Text
 } from '@chakra-ui/react'
+import { signIn } from 'next-auth/react'
+import { useState } from 'react'
 
-const CFaUserAlt = chakra(FaUserAlt)
-const CFaLock = chakra(FaLock)
-
-const Login = () => {
+const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const handleShowClick = () => setShowPassword(!showPassword)
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
     //signIn here comes from next-auth, not graphql
-    const res = await signIn('credentials', {
+    await signIn('sign-in-provider', {
       redirect: false,
       email,
       password,
@@ -48,14 +36,16 @@ const Login = () => {
 
   return (
     <>
-      <Heading color='teal.400'>Welcome</Heading>
-      <Box minW={{ base: '90%', md: '468px' }}>
+      <Box minW='400px'>
         <form onSubmit={onSubmit}>
           <Stack
             spacing={4}
             p='1rem'
             // backgroundColor='whiteAlpha.900'
           >
+            <Text color='teal.400' fontSize='x-large'>
+              LOGIN
+            </Text>
             <FormControl>
               <FormLabel color='black'>Email</FormLabel>
               <InputGroup>
@@ -84,15 +74,14 @@ const Login = () => {
                 />
               </InputGroup>
               <Checkbox
-                defaultChecked
                 marginTop='3'
                 marginLeft='1'
+                borderColor='gray.200'
                 color='black'
               >
                 Remember me?
               </Checkbox>
               <Button
-                borderRadius={0}
                 marginTop='5'
                 type='submit'
                 variant='solid'
@@ -134,4 +123,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default SignIn

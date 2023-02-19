@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import { NextPage, NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/react'
-import Auth from '../components/Auth/Auth'
+import Auth from '../components/Auth/AuthWrapper'
 
 const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish

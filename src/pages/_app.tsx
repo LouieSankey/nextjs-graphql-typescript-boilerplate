@@ -19,7 +19,9 @@ export default function App({
     {
       colors: {
         brand: {
-          100: '#3d84f7'
+          900: '#1a365d',
+          800: '#153e75',
+          700: '#2a69ac'
         }
       },
       styles: {

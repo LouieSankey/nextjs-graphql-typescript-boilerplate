@@ -1,43 +1,29 @@
-import { useState } from 'react'
-import { signIn } from 'next-auth/react'
-import { FaUserAlt, FaLock } from 'react-icons/fa'
-import UserOperations from '@/src/graphql/operations/user'
 import {
-  Flex,
-  Heading,
-  Input,
+  Box,
   Button,
+  Divider,
+  Flex,
+  FormControl,
+  FormLabel,
+  Image,
+  Input,
   InputGroup,
   Stack,
-  InputLeftElement,
-  chakra,
-  Box,
-  Link,
-  Avatar,
-  FormControl,
-  FormHelperText,
-  InputRightElement,
-  Image,
-  Divider,
-  Text,
-  FormLabel
+  Text
 } from '@chakra-ui/react'
-
-const CFaUserAlt = chakra(FaUserAlt)
-const CFaLock = chakra(FaLock)
+import { signIn as signUp } from 'next-auth/react'
+import { useState } from 'react'
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleShowClick = () => setShowPassword(!showPassword)
-
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
-    //signIn here comes from next-auth, not graphql
-    const res = await signIn('credentials', {
+    //signUp here comes from next-auth as an alias for signIn, not from graphql
+    await signUp('sign-up-provider', {
       redirect: false,
       email,
       password,
@@ -47,10 +33,12 @@ const SignUp = () => {
 
   return (
     <>
-      <Heading color='teal.400'>Sign Up</Heading>
-      <Box minW={{ base: '90%', md: '468px' }}>
+      <Box minW='400px'>
         <form onSubmit={onSubmit}>
           <Stack spacing={4} p='1rem' backgroundColor='whiteAlpha.900'>
+            <Text color='teal.400' fontSize='x-large'>
+              SIGN UP
+            </Text>
             <FormControl>
               <FormLabel color='black'>Email</FormLabel>
               <InputGroup>
