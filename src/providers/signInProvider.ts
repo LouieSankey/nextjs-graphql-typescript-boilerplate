@@ -24,7 +24,6 @@ const signInProvider = CredentialsProvider({
         password: credentials.password
       }
     })
-    console.log(response)
 
     const { data } = response
 

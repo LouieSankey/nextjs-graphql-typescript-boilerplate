@@ -2,7 +2,7 @@ import { Session } from 'next-auth'
 
 export interface IAuthProps {
   session: Session | null
-  reloadSession: () => void
+  // reloadSession: () => void
 }
 
 //used in the useMutation hook for creating a user
@@ -42,5 +42,5 @@ export interface User {
   emailVerified: boolean
   image: string
   name: string
-  error: string
+  // error: string
 }

@@ -1,29 +1,26 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import { NextPage, NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/react'
-import Auth from '../components/Auth/AuthWrapper'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish
   const { data: session } = useSession()
 
-  console.log('the users session: ', session)
+  const router = useRouter()
 
-  //after we update our username, this is how we let the client know
-  const reloadSession = () => {
-    const event = new Event('visibilityChange')
-    document.dispatchEvent(event)
-  }
+  useEffect(() => {
+    if (!session?.user?.email) {
+      router.replace('/login')
+    }
+  }, [router, session])
 
   return (
     <Box>
-      {session?.user?.email ? (
-        <button className='signout' onClick={() => signOut()}>
-          Sign Out
-        </button>
-      ) : (
-        <Auth session={session} reloadSession={reloadSession} />
-      )}
+      <button className='signout' onClick={() => signOut()}>
+        Sign Out
+      </button>
     </Box>
   )
 }
