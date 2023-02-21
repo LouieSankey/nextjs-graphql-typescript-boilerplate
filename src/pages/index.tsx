@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 
   return (
     <Box>
-      {session?.user ? (
+      {session?.user?.email ? (
         <button className='signout' onClick={() => signOut()}>
           Sign Out
         </button>

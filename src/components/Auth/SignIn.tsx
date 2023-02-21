@@ -1,3 +1,4 @@
+import { IAuthProps } from '@/src/util/types'
 import {
   Box,
   Button,
@@ -5,6 +6,7 @@ import {
   Divider,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormHelperText,
   FormLabel,
   Image,
@@ -15,12 +17,21 @@ import {
   Text
 } from '@chakra-ui/react'
 import { signIn } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const SignIn = () => {
+const SignIn: React.FC<IAuthProps> = ({ session, reloadSession }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const isError =
+    session?.user?.error && email.length !== 0 && password.length !== 0
+
+  useEffect(() => {
+    if (session?.user?.error) {
+      delete session?.user?.error
+    }
+  }, [session])
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -46,7 +57,7 @@ const SignIn = () => {
             <Text color='teal.400' fontSize='x-large'>
               LOGIN
             </Text>
-            <FormControl>
+            <FormControl isInvalid={isError}>
               <FormLabel color='black'>Email</FormLabel>
               <InputGroup>
                 <Input
@@ -59,7 +70,8 @@ const SignIn = () => {
                 />
               </InputGroup>
             </FormControl>
-            <FormControl>
+
+            <FormControl isInvalid={isError}>
               <FormLabel color='black'>Password</FormLabel>
 
               <InputGroup>
@@ -73,6 +85,8 @@ const SignIn = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </InputGroup>
+              <FormErrorMessage>Invalid Credentials.</FormErrorMessage>
+
               <Checkbox
                 marginTop='3'
                 marginLeft='1'
@@ -92,6 +106,7 @@ const SignIn = () => {
                 LOGIN
               </Button>
               {/* <Text color='black'> Forgot Password?</Text> */}
+
               <FormHelperText textAlign='right'>
                 <Link color='black'>Forgot Password?</Link>
               </FormHelperText>

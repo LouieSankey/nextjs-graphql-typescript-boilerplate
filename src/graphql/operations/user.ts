@@ -24,6 +24,7 @@ const UserOperations = {
       mutation signIn($email: String!, $password: String!) {
         signIn(email: $email, password: $password) {
           email
+          error
         }
       }
     `,

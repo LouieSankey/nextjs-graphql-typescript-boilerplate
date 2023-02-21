@@ -1,23 +1,10 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Center,
-  Flex,
-  Image,
-  Stack,
-  Text
-} from '@chakra-ui/react'
-import { Session } from 'next-auth'
+import { IAuthProps } from '@/src/util/types'
+import { Box, Center, Flex, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useState } from 'react'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 
-interface IAuthProps {
-  session: Session | null
-  reloadSession: () => void
-}
 //session, and reloadSession are passed in index.tsx
 const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
   const [showSignIn, setShowSignIn] = useState(true)
@@ -39,7 +26,11 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
             justifyContent='center'
             alignItems='center'
           >
-            {showSignIn ? <SignIn></SignIn> : <SignUp></SignUp>}
+            {showSignIn ? (
+              <SignIn session={session}></SignIn>
+            ) : (
+              <SignUp session={session}></SignUp>
+            )}
             <Box paddingBottom='4'>
               <Link
                 color='teal.500'
@@ -49,11 +40,19 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
                 {showSignIn ? (
                   <Text color='black' fontSize='sm'>
                     {' '}
-                    Need an account? SIGN UP
+                    Need an account?{' '}
+                    <Text as='span' color='blue'>
+                      {' '}
+                      SIGN UP{' '}
+                    </Text>
                   </Text>
                 ) : (
                   <Text color='black' fontSize='sm'>
-                    Already a user? LOGIN
+                    Already a user?{' '}
+                    <Text as='span' color='blue'>
+                      {' '}
+                      LOGIN{' '}
+                    </Text>
                   </Text>
                 )}
               </Link>

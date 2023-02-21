@@ -15,6 +15,7 @@ const signInProvider = CredentialsProvider({
     if (!credentials?.email || !credentials?.password) {
       throw new Error('Invalid Credentials')
     }
+
     const signIn = UserOperations.Mutations.signIn
     const response = await client.mutate<SignInResponse, SignInInput>({
       mutation: signIn,
@@ -23,7 +24,10 @@ const signInProvider = CredentialsProvider({
         password: credentials.password
       }
     })
+    console.log(response)
+
     const { data } = response
+
     const user = data?.signIn
 
     if (user) {

@@ -1,9 +1,12 @@
+import { IAuthProps } from '@/src/util/types'
 import {
   Box,
   Button,
   Divider,
   Flex,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Image,
   Input,
@@ -12,12 +15,32 @@ import {
   Text
 } from '@chakra-ui/react'
 import { signIn as signUp } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { emailValidator, passwordValidator } from '../../util/validator'
 
-const SignUp = () => {
+type ValidatorOptionType = number | boolean
+
+interface IValidatorOption {
+  min: number
+  max: number
+  digits: ValidatorOptionType
+  letters: ValidatorOptionType
+  lowercase: ValidatorOptionType
+  uppercase: ValidatorOptionType
+  symbols: ValidatorOptionType
+  spaces: ValidatorOptionType
+}
+
+const SignUp: React.FC<IAuthProps> = ({ session, reloadSession }) => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+
+  useEffect(() => {
+    console.log(emailError, passwordError)
+  }, [emailError, passwordError])
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -39,7 +62,10 @@ const SignUp = () => {
             <Text color='teal.400' fontSize='x-large'>
               SIGN UP
             </Text>
-            <FormControl>
+            <FormControl
+              isRequired
+              isInvalid={emailError !== '' && emailError !== null}
+            >
               <FormLabel color='black'>Email</FormLabel>
               <InputGroup>
                 <Input
@@ -50,10 +76,17 @@ const SignUp = () => {
                   borderColor='gray.200'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onBlur={(e) => setEmailError(emailValidator(email))}
                 />
               </InputGroup>
+              {emailError !== '' && (
+                <FormErrorMessage>{emailError}</FormErrorMessage>
+              )}
             </FormControl>
-            <FormControl>
+            <FormControl
+              isRequired
+              isInvalid={passwordError !== '' && passwordError !== null}
+            >
               <FormLabel color='black'>Password</FormLabel>
               <InputGroup>
                 <Input
@@ -65,8 +98,24 @@ const SignUp = () => {
                   borderColor='gray.200'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onBlur={(e) => setPasswordError(passwordValidator(password))}
                 />
               </InputGroup>
+              {passwordError !== '' && passwordError !== null ? (
+                <FormErrorMessage textAlign='left' width='350px'>
+                  {passwordError}
+                </FormErrorMessage>
+              ) : (
+                <FormHelperText
+                  textAlign='left'
+                  fontSize='xs'
+                  color='grey'
+                  width='350px'
+                >
+                  Password must be 8 or more characters and contain at least 1
+                  number and 1 special character (@$!%*?&).
+                </FormHelperText>
+              )}
             </FormControl>
 
             <Button
