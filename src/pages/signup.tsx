@@ -18,6 +18,7 @@ import {
 import { signIn as signUp } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import TopNav from '../components/TopNav'
 import { emailValidator, passwordValidator } from '../util/validator'
 
 type ValidatorOptionType = number | boolean
@@ -54,7 +55,8 @@ const SignUp: React.FC = () => {
 
   return (
     <>
-      <Center height='100vh' border='1px solid red'>
+      <TopNav></TopNav>
+      <Center height='100vh'>
         <Flex
           flexDirection='column'
           height='50vh'
@@ -72,8 +74,8 @@ const SignUp: React.FC = () => {
               <Box minW='400px'>
                 <form onSubmit={onSubmit}>
                   <Stack spacing={4} p='1rem' backgroundColor='whiteAlpha.900'>
-                    <Text color='teal.400' fontSize='x-large'>
-                      SIGN UP
+                    <Text color='brand.primary' fontSize='x-large'>
+                      Sign up
                     </Text>
                     <FormControl
                       isRequired
@@ -137,11 +139,11 @@ const SignUp: React.FC = () => {
                       borderRadius={0}
                       type='submit'
                       variant='solid'
-                      colorScheme='teal'
+                      colorScheme='brandPallet'
                       width='full'
                       color='white'
                     >
-                      Sign Up
+                      Sign up
                     </Button>
                     <Flex align='center'>
                       <Divider borderColor='gray.500' />
@@ -159,7 +161,7 @@ const SignUp: React.FC = () => {
                       leftIcon={
                         <Image
                           height='20px'
-                          src='/google.png'
+                          src='/images/google.png'
                           alt='google logo'
                         />
                       }
@@ -174,7 +176,7 @@ const SignUp: React.FC = () => {
                   Already a user?
                   <Link color='teal.500' href='login'>
                     {' '}
-                    LOGIN
+                    SIGN IN
                   </Link>
                 </Text>
 

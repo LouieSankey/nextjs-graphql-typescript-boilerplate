@@ -10,12 +10,6 @@ const Home: NextPage = () => {
 
   const router = useRouter()
 
-  useEffect(() => {
-    if (!session?.user?.email) {
-      router.replace('/login')
-    }
-  }, [router, session])
-
   return (
     <Box>
       <button className='signout' onClick={() => signOut()}>
@@ -48,6 +42,15 @@ export async function getServerSideProps(context: NextPageContext) {
   // ...
 
   const session = await getSession(context)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/splash',
+        permanent: false
+      }
+    }
+  }
 
   //whatever is returned here gets passed as props to the client
   return {
