@@ -1,31 +1,20 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import { NextPage, NextPageContext } from 'next'
-import { getSession, useSession } from 'next-auth/react'
-import Auth from '../components/Auth/Auth'
-import Chat from '../components/Chat/Chat'
+import { getSession, signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish
   const { data: session } = useSession()
 
-  console.log('session', session)
-
-  //after we update our username, this is how we let the client know
-  const reloadSession = () => {
-    const event = new Event('visibilityChange')
-    document.dispatchEvent(event)
-  }
+  const router = useRouter()
 
   return (
     <Box>
-      {/* show the username at the top */}
-      {session?.user?.username}
-      {/* conditionally render components */}
-      {session?.user?.username ? (
-        <Chat />
-      ) : (
-        <Auth session={session} reloadSession={reloadSession} />
-      )}
+      <button className='signout' onClick={() => signOut()}>
+        Sign Out
+      </button>
     </Box>
   )
 }
@@ -41,10 +30,8 @@ export async function getServerSideProps(context: NextPageContext) {
       .split(';')
       .find((c) => c.trim().startsWith('session.sig='))
 
-    console.log('session cookie', sessionCookie, ' sig ', sigCookie)
     if (sessionCookie) {
       const sessionString = sessionCookie.split('=')[1]
-      console.log('session string', sessionString)
 
       const session = JSON.parse(
         Buffer.from(sessionString, 'base64').toString()
@@ -55,7 +42,16 @@ export async function getServerSideProps(context: NextPageContext) {
   // ...
 
   const session = await getSession(context)
-  console.log('my session', session)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/splash',
+        permanent: false
+      }
+    }
+  }
+
   //whatever is returned here gets passed as props to the client
   return {
     props: {

@@ -14,23 +14,41 @@ export default function App({
     useSystemColorMode: false
   }
 
-  const theme = extendTheme(
-    { config },
-    {
-      colors: {
-        brand: {
-          100: '#3d84f7'
-        }
-      },
-      styles: {
-        global: () => ({
-          body: {
-            bg: 'whiteAlpha.200'
-          }
-        })
+  const brandPallet = {
+    50: '#d8fdff',
+    100: '#acf1ff',
+    200: '#7ee7fc',
+    300: '#4edcf9',
+    400: '#22d2f6',
+    500: '#09b8dd',
+    600: '#008fad',
+    700: '#00667d',
+    800: '#003e4d',
+    900: '#00161f'
+  }
+
+  const theme = extendTheme({
+    colors: {
+      brandPallet,
+      brand: {
+        primary: brandPallet['800'],
+        secondary: brandPallet['400']
       }
+    },
+    styles: {
+      global: {
+        body: {
+          bg: 'gray.800',
+          color: 'white'
+        }
+
+        // add other global styles here
+      }
+    },
+    components: {
+      Button: {}
     }
-  )
+  })
 
   return (
     <ApolloProvider client={client}>
