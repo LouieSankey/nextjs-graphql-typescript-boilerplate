@@ -13,10 +13,19 @@ const UserOperations = {
   },
   Mutations: {
     signUp: gql`
-      mutation signUp($email: String!, $password: String!) {
-        signUp(email: $email, password: $password) {
+      mutation signUp(
+        $email: String!
+        $password: String!
+        $stripeCustomerId: String
+      ) {
+        signUp(
+          email: $email
+          password: $password
+          stripeCustomerId: $stripeCustomerId
+        ) {
           email
           emailVerified
+          stripeCustomerId
         }
       }
     `,
@@ -24,6 +33,14 @@ const UserOperations = {
       mutation signIn($email: String!, $password: String!) {
         signIn(email: $email, password: $password) {
           email
+          error
+        }
+      }
+    `,
+    createStripeCustomerId: gql`
+      mutation createStripeCustomerId($customerId: String!) {
+        createStripeCustomerId(customerId: $customerId) {
+          success
           error
         }
       }

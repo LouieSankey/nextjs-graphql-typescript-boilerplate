@@ -1,87 +1,54 @@
-import { Box, SimpleGrid, useColorModeValue } from '@chakra-ui/react'
-import { SiHive, SiMarketo, SiMicrosoft } from 'react-icons/si'
-import TopNav from '../components/TopNav'
-import { ActionButton } from '../components/upgrade/ActionButton'
-import { PricingCard } from '../components/upgrade/PricingCard'
+import LandingTopNav from '../components/LandingTopNav'
+import UpgradeOptionsWrapper from '../components/upgrade/UpgradeOptionsWrapper'
+import { useEffect } from 'react'
+import stripe from '../util/stripe'
 
-export const Upgrade = () => (
-  <>
-    <TopNav></TopNav>
-    <Box
-      as='section'
-      bg={useColorModeValue('gray.50', 'gray.800')}
-      py='14'
-      px={{ base: '4', md: '8' }}
-    >
-      <SimpleGrid
-        columns={{ base: 1, lg: 3 }}
-        spacing={{ base: '8', lg: '3' }}
-        maxW='7xl'
-        mx='auto'
-        justifyItems='center'
-        alignItems='center'
-      >
-        <PricingCard
-          border='1px white solid'
-          data={{
-            price: '$14',
-            name: 'Pro-Max',
-            features: [
-              'All application UI components',
-              'Lifetime access',
-              'Use on unlimited projects',
-              'Free Updates'
-            ]
-          }}
-          icon={SiMarketo}
-          button={
-            <ActionButton variant='outline' borderWidth='2px'>
-              Upgrade
-            </ActionButton>
-          }
-        />
+interface StripePrice {
+  id: string
+  active: boolean
+  billing_scheme: string
+  created: number
+  currency: string
+  livemode: boolean
+  metadata: { [key: string]: string }
+  nickname: string | null
+  product: string
+  recurring: {
+    aggregate_usage: string | null
+    interval: string
+    interval_count: number
+    usage_type: string
+  }
+  tiers: any[] | null
+  tiers_mode: string | null
+  transform_quantity: any | null
+  type: string
+  unit_amount: number | null
+  unit_amount_decimal: string | null
+}
 
-        <PricingCard
-          border='1px white solid'
-          data={{
-            price: '$14',
-            name: 'Pro-Max',
-            features: [
-              'All application UI components',
-              'Lifetime access',
-              'Use on unlimited projects',
-              'Free Updates'
-            ]
-          }}
-          icon={SiMarketo}
-          button={
-            <ActionButton variant='outline' borderWidth='2px'>
-              Upgrade
-            </ActionButton>
-          }
-        />
-        <PricingCard
-          border='1px white solid'
-          data={{
-            price: '$14',
-            name: 'Pro-Max',
-            features: [
-              'All application UI components',
-              'Lifetime access',
-              'Use on unlimited projects',
-              'Free Updates'
-            ]
-          }}
-          icon={SiMarketo}
-          button={
-            <ActionButton variant='outline' borderWidth='2px'>
-              Upgrade
-            </ActionButton>
-          }
-        />
-      </SimpleGrid>
-    </Box>
-  </>
-)
+const Upgrade = async ({ prices }: { prices: StripePrice[] }) => {
+  useEffect(() => {
+    console.log(prices)
+  }, [])
+
+  return (
+    <>
+      <pre>{JSON.stringify(prices, null, 2)}</pre>
+      <LandingTopNav></LandingTopNav>
+      <UpgradeOptionsWrapper prices={prices}></UpgradeOptionsWrapper>
+    </>
+  )
+}
+
+export const getServerSideProps = async () => {
+  const { data: prices } = await stripe.prices.list()
+
+  return {
+    props: {
+      prices
+    }
+  }
+}
 
 export default Upgrade

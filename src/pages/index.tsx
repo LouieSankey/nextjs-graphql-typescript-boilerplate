@@ -1,26 +1,26 @@
-import { Box, Text } from '@chakra-ui/react'
 import { NextPage, NextPageContext } from 'next'
-import { getSession, signOut, useSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import AccountTopNav from '../components/AccountTopNav'
 
 const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish
   const { data: session } = useSession()
 
+  console.log('session ', session)
+
   const router = useRouter()
 
   return (
-    <Box>
-      <button className='signout' onClick={() => signOut()}>
-        Sign Out
-      </button>
-    </Box>
+    <>
+      <AccountTopNav></AccountTopNav>
+    </>
   )
 }
 
-//passing our context to server side
+//passing our context to server side (this is a replacement for getInitialProps which is older)
 export async function getServerSideProps(context: NextPageContext) {
+  //not sure why I originally wrote this, check back on the next.js graphql tutorial to see whats up.
   const cookie = context.req?.headers.cookie
   if (cookie) {
     const sessionCookie = cookie

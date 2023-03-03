@@ -18,7 +18,7 @@ import {
 import { signIn as signUp } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import TopNav from '../components/TopNav'
+import LandingTopNav from '../components/LandingTopNav'
 import { emailValidator, passwordValidator } from '../util/validator'
 
 type ValidatorOptionType = number | boolean
@@ -55,7 +55,7 @@ const SignUp: React.FC = () => {
 
   return (
     <>
-      <TopNav></TopNav>
+      <LandingTopNav></LandingTopNav>
       <Center height='100vh'>
         <Flex
           flexDirection='column'
