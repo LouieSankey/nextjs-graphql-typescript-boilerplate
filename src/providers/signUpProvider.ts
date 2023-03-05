@@ -1,7 +1,8 @@
 import { client } from '@/src/graphql/apollo-client'
 import UserOperations from '@/src/graphql/operations/user'
-import { SignUpResponse, SignUpInput } from '@/src/util/types'
+import { SignUpInput, SignUpResponse } from '@/src/util/types'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import stripe from '../util/stripe'
 
 const signUp = CredentialsProvider({
   id: 'sign-up-provider',
@@ -14,17 +15,23 @@ const signUp = CredentialsProvider({
     if (!credentials?.email || !credentials?.password) {
       throw new Error('Invalid Credentials')
     }
+    //whenever a new user signs up create a new stripe customer
+    const newCustomer = await stripe.customers.create({
+      email: credentials.email
+    })
 
+    //add the email, password, and stipeCustomerId to the database
     const signUp = UserOperations.Mutations.signUp
-    const response = await client.mutate<SignUpResponse, SignUpInput>({
+    const signUpResponse = await client.mutate<SignUpResponse, SignUpInput>({
       mutation: signUp,
       variables: {
         email: credentials.email,
-        password: credentials.password
+        password: credentials.password,
+        stripeCustomerId: newCustomer.id
       }
     })
 
-    const { data } = response
+    const { data } = signUpResponse
     const user = data?.signUp
 
     if (user) {

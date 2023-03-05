@@ -1,11 +1,11 @@
 import { Box, Button, Flex, Image } from '@chakra-ui/react'
 import Link from 'next/link'
-import TopNav from '../components/TopNav'
+import LandingTopNav from '../components/LandingTopNav'
 
 const Splash: React.FC = () => {
   return (
     <>
-      <TopNav></TopNav>
+      <LandingTopNav></LandingTopNav>
 
       <Box>Splash Page</Box>
     </>

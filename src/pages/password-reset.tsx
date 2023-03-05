@@ -15,7 +15,7 @@ import {
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import TopNav from '../components/TopNav'
+import LandingTopNav from '../components/LandingTopNav'
 
 const PasswordReset: React.FC<IAuthProps> = ({ session }) => {
   const [email, setEmail] = useState('')
@@ -40,7 +40,7 @@ const PasswordReset: React.FC<IAuthProps> = ({ session }) => {
 
   return (
     <>
-      <TopNav></TopNav>
+      <LandingTopNav></LandingTopNav>
       <Center height='100vh'>
         <Flex
           flexDirection='column'

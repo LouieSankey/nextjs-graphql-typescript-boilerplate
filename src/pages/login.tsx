@@ -21,7 +21,7 @@ import { signIn } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useTheme } from '@emotion/react'
-import TopNav from '../components/TopNav'
+import LandingTopNav from '../components/LandingTopNav'
 
 const Login: React.FC<IAuthProps> = ({ session }) => {
   const [showPassword, setShowPassword] = useState(false)
@@ -52,7 +52,7 @@ const Login: React.FC<IAuthProps> = ({ session }) => {
 
   return (
     <>
-      <TopNav></TopNav>
+      <LandingTopNav></LandingTopNav>
       <Center height='100vh'>
         <Flex
           flexDirection='column'

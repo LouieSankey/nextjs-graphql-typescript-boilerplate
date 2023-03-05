@@ -3,7 +3,7 @@
  * @param  {String}  email   user email
  * @return {String}          email error
  */
-const emailValidator = (email) => {
+const emailValidator = (email: string) => {
   let error = null
 
   if (!email || email.length === 0) {
@@ -62,7 +62,7 @@ const confirmPasswordValidator = (password = '', confirmPassword = '') => {
  * @param  {String}  loginPassword   user login password
  * @return {String}                  login password error
  */
-const loginPasswordValidator = (password) => {
+const loginPasswordValidator = (password: string) => {
   let passwordError = ''
 
   if (!password || password.length === 0) {
@@ -76,7 +76,7 @@ const loginPasswordValidator = (password) => {
  * @param  {String}  name   user edit name
  * @return {String}         edit name error
  */
-const nameValidator = (name) => {
+const nameValidator = (name: string) => {
   let error = null
   if (!name || name.length === 0) {
     error = 'Name is required'
@@ -92,7 +92,7 @@ const nameValidator = (name) => {
   return error
 }
 
-const loginEmailValidator = (email) => {
+const loginEmailValidator = (email: string) => {
   let error = ''
 
   if (!email || email.length === 0) {

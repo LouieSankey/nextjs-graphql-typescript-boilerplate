@@ -1,9 +1,10 @@
-import LandingTopNav from '../components/LandingTopNav'
-import UpgradeOptionsWrapper from '../components/upgrade/UpgradeOptionsWrapper'
 import { useEffect } from 'react'
+// import initStripe from 'stripe'
+import AccountTopNav from '../components/AccountTopNav'
+import UpgradeOptionsWrapper from '../components/upgrade/UpgradeOptionsWrapper'
 import stripe from '../util/stripe'
 
-interface StripePrice {
+export interface StripePrice {
   id: string
   active: boolean
   billing_scheme: string
@@ -27,15 +28,15 @@ interface StripePrice {
   unit_amount_decimal: string | null
 }
 
-const Upgrade = async ({ prices }: { prices: StripePrice[] }) => {
+const Account = ({ prices }: { prices: StripePrice[] }) => {
   useEffect(() => {
     console.log(prices)
   }, [])
 
   return (
     <>
-      <pre>{JSON.stringify(prices, null, 2)}</pre>
-      <LandingTopNav></LandingTopNav>
+      {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
+      <AccountTopNav></AccountTopNav>
       <UpgradeOptionsWrapper prices={prices}></UpgradeOptionsWrapper>
     </>
   )
@@ -51,4 +52,4 @@ export const getServerSideProps = async () => {
   }
 }
 
-export default Upgrade
+export default Account

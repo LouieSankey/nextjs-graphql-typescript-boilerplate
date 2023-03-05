@@ -1,17 +1,19 @@
 import { Box, Button, Flex, Image } from '@chakra-ui/react'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
 
-const TopNav: React.FC = () => {
+const AccountTopNav: React.FC = () => {
   return (
     <Flex
-      bg='blackAlpha.700'
+      bg='blackAlpha.400'
       w='100%'
       p={1}
       align='center'
       justify='space-between'
     >
+      {/* <Flex flexDirection='row' bg='blackAlpha.400' p={1} justifyContent='right'> */}
       <Box>
-        <Link href='/splash'>
+        <Link href='/'>
           <Image
             src='/images/logo.png'
             width='140px'
@@ -21,22 +23,18 @@ const TopNav: React.FC = () => {
         </Link>
       </Box>
       <Box>
-        <Link href='/upgrade'>
+        <Link href='/account'>
           <Button variant='outline' mr={4}>
-            Pricing
+            Account
           </Button>
         </Link>
-        <Link href='/login'>
-          <Button variant='outline' mr={4}>
-            Log in
-          </Button>
-        </Link>
-        <Link href='/signup'>
-          <Button colorScheme={'brandPallet'}>Get Started Free!</Button>
-        </Link>
+
+        <Button className='signout' onClick={() => signOut()}>
+          Sign Out
+        </Button>
       </Box>
     </Flex>
   )
 }
 
-export default TopNav
+export default AccountTopNav
