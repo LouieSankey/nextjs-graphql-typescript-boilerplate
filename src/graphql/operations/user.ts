@@ -53,6 +53,13 @@ const UserOperations = {
           error
         }
       }
+    `,
+    createCheckoutSession: gql`
+      mutation CreateCheckoutSession($priceId: String!, $quantity: Int!) {
+        createCheckoutSession(priceId: $priceId, quantity: $quantity) {
+          id
+        }
+      }
     `
   },
   Subscripts: {}

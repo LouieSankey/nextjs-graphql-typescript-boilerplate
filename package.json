@@ -8,10 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "test": "cypress run --browser chrome --headed",
-    "test:ci": "xvfb-run cypress run --headless"
+    "test:ci": "xvfb-run cypress run --headless",
+    "build-mobile": "next build && next export && npx cap sync"
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
+    "@capacitor/cli": "^4.7.0",
+    "@capacitor/core": "^4.7.0",
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
@@ -19,6 +22,7 @@
     "@next-auth/prisma-adapter": "^1.0.5",
     "@next/font": "13.1.2",
     "@prisma/client": "^4.8.1",
+    "@stripe/stripe-js": "^1.48.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
@@ -30,6 +34,7 @@
     "graphql": "^16.6.0",
     "next": "13.1.2",
     "next-auth": "^4.18.8",
+    "next-iron-session": "^4.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",

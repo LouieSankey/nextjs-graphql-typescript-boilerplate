@@ -1,14 +1,18 @@
-import { StripePrice } from '@/src/pages/account'
+import { StripeProduct } from '@/src/pages/account'
 import { Box, SimpleGrid, useColorModeValue } from '@chakra-ui/react'
 import { SiMarketo } from 'react-icons/si'
 import { ActionButton } from './ActionButton'
 import { PricingCard } from './PricingCard'
 
 export const UpgradeOptionsWrapper = ({
-  prices
+  products
 }: {
-  prices: StripePrice[]
+  products: StripeProduct[]
 }) => {
+  const sortedProducts = products.sort(
+    (a, b) => a.metadata.price - b.metadata.price
+  )
+
   return (
     <Box
       as='section'
@@ -24,64 +28,31 @@ export const UpgradeOptionsWrapper = ({
         justifyItems='center'
         alignItems='center'
       >
-        <PricingCard
-          border='1px white solid'
-          data={{
-            price: '$14',
-            name: 'Pro-Max',
-            features: [
-              'All application UI components',
-              'Lifetime access',
-              'Use on unlimited projects',
-              'Free Updates'
-            ]
-          }}
-          icon={SiMarketo}
-          button={
-            <ActionButton variant='outline' borderWidth='2px'>
-              Upgrade
-            </ActionButton>
-          }
-        />
-
-        <PricingCard
-          border='1px white solid'
-          data={{
-            price: '$14',
-            name: 'Pro-Max',
-            features: [
-              'All application UI components',
-              'Lifetime access',
-              'Use on unlimited projects',
-              'Free Updates'
-            ]
-          }}
-          icon={SiMarketo}
-          button={
-            <ActionButton variant='outline' borderWidth='2px'>
-              Upgrade
-            </ActionButton>
-          }
-        />
-        <PricingCard
-          border='1px white solid'
-          data={{
-            price: '$14',
-            name: 'Pro-Max',
-            features: [
-              'All application UI components',
-              'Lifetime access',
-              'Use on unlimited projects',
-              'Free Updates'
-            ]
-          }}
-          icon={SiMarketo}
-          button={
-            <ActionButton variant='outline' borderWidth='2px'>
-              Upgrade
-            </ActionButton>
-          }
-        />
+        {sortedProducts.map((product, index) => (
+          <PricingCard
+            key={product.name}
+            height='600px'
+            border='1px white solid'
+            data={{
+              price: '$' + product.metadata.price,
+              name: product.name,
+              features: Object.entries(product.metadata)
+                .filter(([key, value]) => key !== 'price')
+                .map(([key, value]) => value)
+            }}
+            icon={SiMarketo}
+            button={
+              <ActionButton
+                variant='outline'
+                borderWidth='2px'
+                product={product}
+                // sessionId={''}
+              >
+                Upgrade
+              </ActionButton>
+            }
+          />
+        ))}
       </SimpleGrid>
     </Box>
   )

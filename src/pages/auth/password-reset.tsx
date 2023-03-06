@@ -2,32 +2,24 @@ import { IAuthProps } from '@/src/util/types'
 import {
   Box,
   Button,
-  Checkbox,
+  Center,
   Divider,
   Flex,
   FormControl,
-  FormErrorMessage,
-  FormHelperText,
   FormLabel,
-  Image,
   Input,
   InputGroup,
-  Link as ChakraLink,
   Stack,
-  Text,
-  Center
+  Text
 } from '@chakra-ui/react'
-import { signIn } from 'next-auth/react'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useTheme } from '@emotion/react'
-import LandingTopNav from '../components/LandingTopNav'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import LandingTopNav from '../../components/Nav/LandingTopNav'
 
-const Login: React.FC<IAuthProps> = ({ session }) => {
-  const [showPassword, setShowPassword] = useState(false)
+const PasswordReset: React.FC<IAuthProps> = ({ session }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const theme = useTheme()
 
   const isError =
     session?.user?.error && email.length !== 0 && password.length !== 0
@@ -38,21 +30,17 @@ const Login: React.FC<IAuthProps> = ({ session }) => {
     }
   }, [session])
 
+  const router = useRouter()
+
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-
-    //signIn here comes from next-auth, not graphql
-    await signIn('sign-in-provider', {
-      redirect: true,
-      email,
-      password,
-      callbackUrl: `${window.location.origin}/`
-    })
+    //send the reset email and redirect to the confirmation page
+    router.replace('/auth/password-reset-confirmation')
   }
 
   return (
     <>
-      <LandingTopNav></LandingTopNav>
+      <LandingTopNav isLoggedIn={false}></LandingTopNav>
       <Center height='100vh'>
         <Flex
           flexDirection='column'
@@ -76,7 +64,11 @@ const Login: React.FC<IAuthProps> = ({ session }) => {
                     // backgroundColor='whiteAlpha.900'
                   >
                     <Text color='brand.primary' fontSize='x-large'>
-                      Sign in
+                      Reset your password
+                    </Text>
+                    <Text color='black' width='400px'>
+                      Please enter the email address associated with your
+                      account.
                     </Text>
                     <FormControl isInvalid={isError}>
                       <FormLabel color='black'>Email</FormLabel>
@@ -90,32 +82,6 @@ const Login: React.FC<IAuthProps> = ({ session }) => {
                           onChange={(e) => setEmail(e.target.value)}
                         />
                       </InputGroup>
-                    </FormControl>
-
-                    <FormControl isInvalid={isError}>
-                      <FormLabel color='black'>Password</FormLabel>
-
-                      <InputGroup>
-                        <Input
-                          type={showPassword ? 'text' : 'password'}
-                          color='blackAlpha.800'
-                          _placeholder={{ color: 'gray.300' }}
-                          border='1px'
-                          borderColor='gray.200'
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                      </InputGroup>
-                      <FormErrorMessage>Invalid Credentials.</FormErrorMessage>
-
-                      <Checkbox
-                        marginTop='3'
-                        marginLeft='1'
-                        borderColor='gray.200'
-                        color='black'
-                      >
-                        Remember me?
-                      </Checkbox>
                       <Button
                         marginTop='5'
                         type='submit'
@@ -124,14 +90,8 @@ const Login: React.FC<IAuthProps> = ({ session }) => {
                         width='full'
                         color='white'
                       >
-                        Sign in
+                        Send Email
                       </Button>
-
-                      <FormHelperText textAlign='right'>
-                        <ChakraLink color='black' href='password-reset'>
-                          Forgot Password?
-                        </ChakraLink>
-                      </FormHelperText>
                     </FormControl>
 
                     <Flex align='center'>
@@ -141,29 +101,13 @@ const Login: React.FC<IAuthProps> = ({ session }) => {
                       </Text>
                       <Divider borderColor='gray.500' />
                     </Flex>
-                    <Button
-                      onClick={() => signIn('google')}
-                      border='1px'
-                      color='black'
-                      borderColor='gray.300'
-                      className='signin-button'
-                      leftIcon={
-                        <Image
-                          height='20px'
-                          src='/images/google.png'
-                          alt='google logo'
-                        />
-                      }
-                    >
-                      Continue with Google
-                    </Button>
                   </Stack>
                 </form>
               </Box>
               <Box paddingBottom='4'>
                 <Text color='black' fontSize='sm'>
                   Need an account?
-                  <Link color='teal.500' href='signup'>
+                  <Link color='brand.primary' href='signup'>
                     {' '}
                     SIGN UP
                   </Link>
@@ -177,4 +121,4 @@ const Login: React.FC<IAuthProps> = ({ session }) => {
   )
 }
 
-export default Login
+export default PasswordReset

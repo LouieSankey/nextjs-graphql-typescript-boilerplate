@@ -1,11 +1,11 @@
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react'
 import Link from 'next/link'
-import LandingTopNav from '../components/LandingTopNav'
+import LandingTopNav from '../../components/Nav/LandingTopNav'
 
 const PasswordResetConfirmation: React.FC = () => {
   return (
     <>
-      <LandingTopNav></LandingTopNav>
+      <LandingTopNav isLoggedIn={false}></LandingTopNav>
       <Flex
         height='100vh'
         alignItems='center'

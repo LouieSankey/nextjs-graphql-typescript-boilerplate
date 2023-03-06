@@ -1,53 +1,55 @@
+import { GetServerSidePropsContext, NextPageContext } from 'next'
+import { getSession } from 'next-auth/react'
 import { useEffect } from 'react'
-// import initStripe from 'stripe'
-import AccountTopNav from '../components/AccountTopNav'
+import AccountTopNav from '../components/Nav/AccountTopNav'
 import UpgradeOptionsWrapper from '../components/upgrade/UpgradeOptionsWrapper'
 import stripe from '../util/stripe'
 
-export interface StripePrice {
+export interface StripeProduct {
   id: string
+  default_price: ''
+  object: 'product'
   active: boolean
-  billing_scheme: string
+  name: string
+  description?: string
+  images?: string[]
+  metadata: Record<string, any>
+  statement_descriptor?: string
+  unit_label?: string
+  updated: number
   created: number
-  currency: string
-  livemode: boolean
-  metadata: { [key: string]: string }
-  nickname: string | null
-  product: string
-  recurring: {
-    aggregate_usage: string | null
-    interval: string
-    interval_count: number
-    usage_type: string
-  }
-  tiers: any[] | null
-  tiers_mode: string | null
-  transform_quantity: any | null
-  type: string
-  unit_amount: number | null
-  unit_amount_decimal: string | null
 }
 
-const Account = ({ prices }: { prices: StripePrice[] }) => {
+const Account = ({ products }: { products: StripeProduct[] }) => {
   useEffect(() => {
-    console.log(prices)
+    console.log('products', products)
   }, [])
 
   return (
     <>
-      {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
       <AccountTopNav></AccountTopNav>
-      <UpgradeOptionsWrapper prices={prices}></UpgradeOptionsWrapper>
+      <UpgradeOptionsWrapper products={products}></UpgradeOptionsWrapper>
     </>
   )
 }
 
-export const getServerSideProps = async () => {
-  const { data: prices } = await stripe.prices.list()
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const session = await getSession(ctx)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/splash',
+        permanent: false
+      }
+    }
+  }
+
+  const { data: products } = await stripe.products.list()
 
   return {
     props: {
-      prices
+      products
     }
   }
 }

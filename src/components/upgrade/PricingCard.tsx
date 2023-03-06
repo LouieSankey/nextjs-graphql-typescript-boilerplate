@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   Heading,
   Icon,
@@ -52,20 +53,22 @@ export const PricingCard = (props: PricingCardProps) => {
           / mo
         </Text>
       </Flex>
-      <List spacing='4' mb='8' maxW='28ch' mx='auto'>
-        {features.map((feature, index) => (
-          <ListItem fontWeight='medium' key={index}>
-            <ListIcon
-              fontSize='xl'
-              as={HiCheckCircle}
-              marginEnd={2}
-              color={accentColor}
-            />
-            {feature}
-          </ListItem>
-        ))}
-      </List>
-      {button}
+      <Flex flexDirection='column' justifyContent='space-between' h='58%'>
+        <List spacing='4' mb='8' maxW='28ch' mx='auto'>
+          {features.map((feature, index) => (
+            <ListItem fontWeight='medium' key={index}>
+              <ListIcon
+                fontSize='xl'
+                as={HiCheckCircle}
+                marginEnd={2}
+                color={accentColor}
+              />
+              {feature}
+            </ListItem>
+          ))}
+        </List>
+        {button}
+      </Flex>
     </Card>
   )
 }

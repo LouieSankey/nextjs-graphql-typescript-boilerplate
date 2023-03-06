@@ -15,11 +15,12 @@ import {
   Stack,
   Text
 } from '@chakra-ui/react'
-import { signIn as signUp } from 'next-auth/react'
+import { getSession, GetSessionParams, signIn as signUp } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import LandingTopNav from '../components/LandingTopNav'
-import { emailValidator, passwordValidator } from '../util/validator'
+import LandingTopNav from '../../components/Nav/LandingTopNav'
+import { emailValidator, passwordValidator } from '../../util/validator'
+// import { GraphQLContext } from '../../util/types'
 
 type ValidatorOptionType = number | boolean
 
@@ -55,7 +56,7 @@ const SignUp: React.FC = () => {
 
   return (
     <>
-      <LandingTopNav></LandingTopNav>
+      <LandingTopNav isLoggedIn={false}></LandingTopNav>
       <Center height='100vh'>
         <Flex
           flexDirection='column'
@@ -91,7 +92,9 @@ const SignUp: React.FC = () => {
                           borderColor='gray.200'
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          onBlur={(e) => setEmailError(emailValidator(email))}
+                          onBlur={(e) =>
+                            setEmailError(emailValidator(email) || '')
+                          }
                         />
                       </InputGroup>
                       {emailError !== '' && (
@@ -114,7 +117,7 @@ const SignUp: React.FC = () => {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           onBlur={(e) =>
-                            setPasswordError(passwordValidator(password))
+                            setPasswordError(passwordValidator(password) || '')
                           }
                         />
                       </InputGroup>
@@ -197,6 +200,22 @@ const SignUp: React.FC = () => {
       </Center>
     </>
   )
+}
+
+export const getServerSideProps = async (context: GetSessionParams) => {
+  const session = await getSession(context)
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: {}
+  }
 }
 
 export default SignUp

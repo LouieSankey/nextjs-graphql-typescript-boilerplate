@@ -1,8 +1,11 @@
 import { Box, Button, Flex, Image } from '@chakra-ui/react'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const AccountTopNav: React.FC = () => {
+  const router = useRouter()
+
   return (
     <Flex
       bg='blackAlpha.400'
@@ -11,7 +14,6 @@ const AccountTopNav: React.FC = () => {
       align='center'
       justify='space-between'
     >
-      {/* <Flex flexDirection='row' bg='blackAlpha.400' p={1} justifyContent='right'> */}
       <Box>
         <Link href='/'>
           <Image
@@ -29,7 +31,13 @@ const AccountTopNav: React.FC = () => {
           </Button>
         </Link>
 
-        <Button className='signout' onClick={() => signOut()}>
+        <Button
+          className='signout'
+          onClick={async () => {
+            await signOut()
+            router.replace('splash')
+          }}
+        >
           Sign Out
         </Button>
       </Box>

@@ -22,3 +22,4 @@ describe('template spec', () => {
     )
   })
 })
+export {}

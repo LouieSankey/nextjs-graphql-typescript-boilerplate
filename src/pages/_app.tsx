@@ -31,7 +31,7 @@ export default function App({
     colors: {
       brandPallet,
       brand: {
-        primary: brandPallet['800'],
+        primary: brandPallet['600'],
         secondary: brandPallet['400']
       }
     },

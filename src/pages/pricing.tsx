@@ -1,7 +1,10 @@
-import LandingTopNav from '../components/LandingTopNav'
+import LandingTopNav from '../components/Nav/LandingTopNav'
 import UpgradeOptionsWrapper from '../components/upgrade/UpgradeOptionsWrapper'
 import { useEffect } from 'react'
 import stripe from '../util/stripe'
+import { StripeProduct } from './account'
+import { getSession } from 'next-auth/react'
+import { GetServerSidePropsContext } from 'next'
 
 interface StripePrice {
   id: string
@@ -27,26 +30,34 @@ interface StripePrice {
   unit_amount_decimal: string | null
 }
 
-const Upgrade = async ({ prices }: { prices: StripePrice[] }) => {
-  useEffect(() => {
-    console.log(prices)
-  }, [])
+interface Props {
+  isLoggedIn: boolean
+}
 
+const Upgrade = ({
+  products,
+  isLoggedIn
+}: {
+  products: StripeProduct[]
+  isLoggedIn: boolean
+}) => {
   return (
     <>
-      <pre>{JSON.stringify(prices, null, 2)}</pre>
-      <LandingTopNav></LandingTopNav>
-      <UpgradeOptionsWrapper prices={prices}></UpgradeOptionsWrapper>
+      <LandingTopNav isLoggedIn={isLoggedIn}></LandingTopNav>
+      <UpgradeOptionsWrapper products={products}></UpgradeOptionsWrapper>
     </>
   )
 }
 
-export const getServerSideProps = async () => {
-  const { data: prices } = await stripe.prices.list()
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const { data: products } = await stripe.products.list()
+
+  const session = await getSession(ctx)
 
   return {
     props: {
-      prices
+      products,
+      isLoggedIn: !!session
     }
   }
 }
