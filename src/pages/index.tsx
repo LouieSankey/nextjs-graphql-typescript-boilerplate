@@ -2,6 +2,9 @@ import { NextPage, NextPageContext } from 'next'
 import { getSession, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import AccountTopNav from '../components/Nav/AccountTopNav'
+import Counter from '../shared/counter'
+// import { Text, Button } from 'shared'
+import React from 'react'
 
 const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish
@@ -14,7 +17,9 @@ const Home: NextPage = () => {
   return (
     <>
       <AccountTopNav></AccountTopNav>
-      <div>Home</div>
+      {/* <Text>YAYYYY!!</Text>
+      <Button /> */}
+      <Counter></Counter>
     </>
   )
 }
