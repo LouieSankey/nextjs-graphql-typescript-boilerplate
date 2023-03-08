@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "shared/*": ["../node_modules/react-native-web/*"]
+      "shared/*": ["../node_modules/react-native-web/*"] //don't think this is doing anything
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "test/header.test.js"],
