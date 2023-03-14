@@ -1,6 +1,6 @@
-import { client } from '@/src/graphql/apollo-client'
-import UserOperations from '@/src/graphql/operations/user'
-import { SignUpInput, SignUpResponse } from '@/src/util/types'
+import { client } from '@/src/shared/graphql/apollo-client'
+import UserOperations from '@/src/shared/graphql/operations/user'
+import { SignUpInput, SignUpResponse } from '@/src/shared/util/types'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import stripe from '../util/stripe'
 
@@ -13,7 +13,7 @@ const signUp = CredentialsProvider({
   //authorize will be called whether this is signUp or signIn
   async authorize(credentials, req) {
     if (!credentials?.email || !credentials?.password) {
-      throw new Error('Invalid Credentials')
+      throw new Error('You must supply a valid email and password')
     }
     //whenever a new user signs up create a new stripe customer
     const newCustomer = await stripe.customers.create({

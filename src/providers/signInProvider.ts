@@ -1,6 +1,6 @@
-import { client } from '@/src/graphql/apollo-client'
-import UserOperations from '@/src/graphql/operations/user'
-import { SignInResponse, SignInInput } from '@/src/util/types'
+import { client } from '@/src/shared/graphql/apollo-client'
+import UserOperations from '@/src/shared/graphql/operations/user'
+import { SignInResponse, SignInInput } from '@/src/shared/util/types'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 const signInProvider = CredentialsProvider({
@@ -26,9 +26,7 @@ const signInProvider = CredentialsProvider({
     })
 
     const { data } = response
-
     const user = data?.signIn
-
     if (user) {
       return user
     }

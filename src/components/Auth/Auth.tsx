@@ -1,5 +1,8 @@
-import UserOperations from '@/src/graphql/operations/user'
-import { CreateUsernameData, CreateUsernameVariables } from '@/src/util/types'
+import UserOperations from '@/src/shared/graphql/operations/user'
+import {
+  CreateUsernameData,
+  CreateUsernameVariables
+} from '@/src/shared/util/types'
 import { useMutation } from '@apollo/client'
 import { Button, Center, Stack, Text, Image, Input } from '@chakra-ui/react'
 import { Session } from 'next-auth'

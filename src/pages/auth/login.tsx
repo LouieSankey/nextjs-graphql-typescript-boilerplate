@@ -1,22 +1,5 @@
-import { IAuthProps } from '@/src/util/types'
-import {
-  Box,
-  Button,
-  Checkbox,
-  Divider,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Image,
-  Input,
-  InputGroup,
-  Link as ChakraLink,
-  Stack,
-  Text,
-  Center
-} from '@chakra-ui/react'
+import { IAuthProps } from '@/src/shared/util/types'
+import { useTheme } from '@emotion/react'
 import {
   getSession,
   GetSessionParams,
@@ -24,46 +7,68 @@ import {
   useSession
 } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { useTheme } from '@emotion/react'
 import LandingTopNav from '../../components/Nav/LandingTopNav'
-// import { GraphQLContext } from '../../util/types'
+
+import { useRouter } from 'next/router'
+import SharedLogin from '../../shared/auth/login'
 
 const Login: React.FC<IAuthProps> = () => {
-  const [showPassword, setShowPassword] = useState(false)
+  // const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const theme = useTheme()
-
+  const router = useRouter()
   const session = useSession().data
+  const [error, setError] = useState('')
 
-  const isError =
-    session?.user?.error && email.length !== 0 && password.length !== 0
+  // const isError =
+  //   session?.user?.error && email.length !== 0 && password.length !== 0
 
   useEffect(() => {
     if (session?.user?.error) {
       delete session?.user?.error
     }
     console.log('client side session ', session)
-    console.log('origin ', window.location.origin)
   }, [session])
 
-  const onSubmit = async (event: React.FormEvent) => {
+  const onSubmit = async (
+    event: React.FormEvent,
+    email: string,
+    password: string
+  ) => {
     event.preventDefault()
 
-    //signIn here comes from next-auth, not graphql
-    await signIn('sign-in-provider', {
-      redirect: true,
+    // signIn here comes from next-auth, not graphql
+
+    const response = await signIn('sign-in-provider', {
+      redirect: false,
       email,
       password,
       callbackUrl: `${window.location.origin}/`
     })
+
+    if (response?.ok) {
+      router.push('/')
+    }
+    if (response?.error) {
+      setError(response.error)
+    }
   }
 
   return (
     <>
       <LandingTopNav isLoggedIn={false}></LandingTopNav>
-      <Center height='100vh'>
+
+      <SharedLogin
+        imgSrc={require('../../../public/images/google.png')}
+        mobile={false}
+        navigation={router}
+        onSubmit={onSubmit}
+        signInGoogle={signIn}
+        authError={error}
+      ></SharedLogin>
+
+      {/* <Center height='100vh'>
         <Flex
           flexDirection='column'
           height='50vh'
@@ -182,7 +187,7 @@ const Login: React.FC<IAuthProps> = () => {
             </Stack>
           </Stack>
         </Flex>
-      </Center>
+      </Center> */}
     </>
   )
 }

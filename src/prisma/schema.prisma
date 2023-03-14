@@ -37,12 +37,12 @@ model Session {
 model User {
   id  String  @id @default(auto()) @map("_id") @db.ObjectId
   name              String?
-  email             String?   @unique
+  email             String    @unique
   username          String?   @unique
-  password          String?
+  password          String
   emailVerified     DateTime?
   image             String?
-  stripeCustomerId  String?
+  // stripeCustomerId  String?
   accounts          Account[]
   sessions          Session[]
 }

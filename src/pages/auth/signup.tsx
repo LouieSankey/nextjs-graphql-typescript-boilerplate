@@ -1,26 +1,9 @@
-import { IAuthProps } from '@/src/util/types'
-import {
-  Box,
-  Button,
-  Center,
-  Divider,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Image,
-  Input,
-  InputGroup,
-  Stack,
-  Text
-} from '@chakra-ui/react'
 import { getSession, GetSessionParams, signIn as signUp } from 'next-auth/react'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import LandingTopNav from '../../components/Nav/LandingTopNav'
-import { emailValidator, passwordValidator } from '../../util/validator'
-// import { GraphQLContext } from '../../util/types'
+
+import { useRouter } from 'next/router'
+import SharedSignUp from '../../shared/auth/signup'
 
 type ValidatorOptionType = number | boolean
 
@@ -41,23 +24,46 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
+  const router = useRouter()
+  const [error, setError] = useState('')
 
-  const onSubmit = async (event: React.FormEvent) => {
+  const onSubmit = async (
+    event: React.FormEvent,
+    email: string,
+    password: string
+  ) => {
     event.preventDefault()
 
     //signUp here comes from next-auth as an alias for signIn, not from graphql
-    await signUp('sign-up-provider', {
-      redirect: true,
+    const response = await signUp('sign-up-provider', {
+      redirect: false,
       email,
       password,
       callbackUrl: `${window.location.origin}/`
     })
+
+    if (response?.ok) {
+      router.push('/')
+    }
+    if (response?.error) {
+      setError(response.error)
+    }
   }
 
   return (
     <>
       <LandingTopNav isLoggedIn={false}></LandingTopNav>
-      <Center height='100vh'>
+
+      <SharedSignUp
+        imgSrc={require('../../shared/images/google.png')}
+        mobile={false}
+        navigation={router}
+        onSubmit={onSubmit}
+        signUpGoogle={signUp}
+        authError={error}
+      ></SharedSignUp>
+
+      {/* <Center height='100vh'>
         <Flex
           flexDirection='column'
           height='50vh'
@@ -193,11 +199,11 @@ const SignUp: React.FC = () => {
                     </Text>
                   </Text>
                 </Link> */}
-              </Box>
+      {/* </Box>
             </Stack>
           </Stack>
         </Flex>
-      </Center>
+      </Center> */}
     </>
   )
 }

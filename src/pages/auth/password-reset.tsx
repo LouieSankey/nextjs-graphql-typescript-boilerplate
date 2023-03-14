@@ -1,4 +1,4 @@
-import { IAuthProps } from '@/src/util/types'
+import { IAuthProps } from '@/src/shared/util/types'
 import {
   Box,
   Button,

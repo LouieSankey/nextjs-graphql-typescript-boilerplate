@@ -20,9 +20,9 @@ const Home: NextPage = () => {
       <AccountTopNav></AccountTopNav>
       {/* <Text>YAYYYY!!</Text>
       <Button /> */}
-      <Counter></Counter>
+      {/* <Counter></Counter> */}
       {/* <div style={{ width: '400px' }}> */}
-      <Login mobile={false} imgSrc={'/images/google.png'}></Login>
+      {/* <Login mobile={false} imgSrc={'/images/google.png'}></Login> */}
       {/* </div> */}
     </>
   )
@@ -52,6 +52,8 @@ export async function getServerSideProps(context: NextPageContext) {
   // ...
 
   const session = await getSession(context)
+
+  console.log('pre ', session)
 
   if (!session) {
     return {

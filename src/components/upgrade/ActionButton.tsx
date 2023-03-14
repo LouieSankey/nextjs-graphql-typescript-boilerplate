@@ -1,4 +1,4 @@
-import UserOperations from '@/src/graphql/operations/user'
+import UserOperations from '@/src/shared/graphql/operations/user'
 import { StripeProduct } from '@/src/pages/account'
 import { useMutation } from '@apollo/client'
 import { Button, ButtonProps } from '@chakra-ui/react'
