@@ -5,7 +5,7 @@ import AccountTopNav from '../components/Nav/AccountTopNav'
 import Counter from '../shared/counter'
 // import { Text, Button } from 'shared'
 import React from 'react'
-import Login from '../shared/auth/login'
+import Login from '../shared/screens/login'
 
 const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish

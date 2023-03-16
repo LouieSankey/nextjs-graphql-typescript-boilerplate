@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import LandingTopNav from '../../components/Nav/LandingTopNav'
 
 import { useRouter } from 'next/router'
-import SharedLogin from '../../shared/auth/login'
+import SharedLogin from '../../shared/screens/login'
 
 const Login: React.FC<IAuthProps> = () => {
   // const [showPassword, setShowPassword] = useState(false)
