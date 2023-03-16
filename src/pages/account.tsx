@@ -2,7 +2,7 @@ import { GetServerSidePropsContext, NextPageContext } from 'next'
 import { getSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import AccountTopNav from '../components/Nav/AccountTopNav'
-import UpgradeOptionsWrapper from '../components/upgrade/UpgradeOptionsWrapper'
+import UpgradeOptionsWrapper from '../shared/auth/UpgradeOptions'
 import stripe from '../util/stripe'
 
 export interface StripeProduct {

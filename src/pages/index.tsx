@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish
   const { data: session } = useSession()
 
-  console.log('session ', session)
+  console.log('frontend session data', session)
 
   const router = useRouter()
 
@@ -52,8 +52,6 @@ export async function getServerSideProps(context: NextPageContext) {
   // ...
 
   const session = await getSession(context)
-
-  console.log('pre ', session)
 
   if (!session) {
     return {

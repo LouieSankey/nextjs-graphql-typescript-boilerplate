@@ -1,5 +1,5 @@
 import LandingTopNav from '../components/Nav/LandingTopNav'
-import UpgradeOptionsWrapper from '../components/upgrade/UpgradeOptionsWrapper'
+import UpgradeOptionsWrapper from '../shared/auth/UpgradeOptions'
 import { useEffect } from 'react'
 import stripe from '../util/stripe'
 import { StripeProduct } from './account'
