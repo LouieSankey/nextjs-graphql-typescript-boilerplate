@@ -1,4 +1,4 @@
-import UserOperations from '@/src/shared/graphql/operations/user'
+import Operations from '@/src/shared/graphql/operations/index'
 import {
   CreateUsernameData,
   CreateUsernameVariables
@@ -24,7 +24,7 @@ const Auth: React.FC<IAuthProps> = ({ session, reloadSession }) => {
     //add typing for data and to the userMutation hook so TS knows
     CreateUsernameData,
     CreateUsernameVariables
-  >(UserOperations.Mutations.createUsername)
+  >(Operations.Mutations.createUsername)
 
   const onSubmit = async () => {
     if (!username) return

@@ -25,9 +25,9 @@ const AccountTopNav: React.FC = () => {
         </Link>
       </Box>
       <Box>
-        <Link href='/account'>
+        <Link href='/pricing'>
           <Button variant='outline' mr={4}>
-            Account
+            Pricing
           </Button>
         </Link>
 

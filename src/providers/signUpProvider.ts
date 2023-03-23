@@ -1,5 +1,5 @@
 import { client } from '@/src/shared/graphql/apollo-client'
-import UserOperations from '@/src/shared/graphql/operations/user'
+import Operations from '@/src/shared/graphql/operations/index'
 import { SignUpInput, SignUpResponse } from '@/src/shared/util/types'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import stripe from '../util/stripe'
@@ -21,7 +21,7 @@ const signUp = CredentialsProvider({
     })
 
     //add the email, password, and stipeCustomerId to the database
-    const signUp = UserOperations.Mutations.signUp
+    const signUp = Operations.Mutations.signUp
     const signUpResponse = await client.mutate<SignUpResponse, SignUpInput>({
       mutation: signUp,
       variables: {

@@ -1,5 +1,5 @@
 import { client } from '@/src/shared/graphql/apollo-client'
-import UserOperations from '@/src/shared/graphql/operations/user'
+import Operations from '@/src/shared/graphql/operations/index'
 import { SignInResponse, SignInInput } from '@/src/shared/util/types'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
@@ -16,7 +16,7 @@ const signInProvider = CredentialsProvider({
       throw new Error('Invalid Credentials')
     }
 
-    const signIn = UserOperations.Mutations.signIn
+    const signIn = Operations.Mutations.signIn
     const response = await client.mutate<SignInResponse, SignInInput>({
       mutation: signIn,
       variables: {
