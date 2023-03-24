@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   //when we destructure we can include an alias of our choosing if we wish
   const { data: session } = useSession()
 
-  console.log('frontend session data', session)
+  // console.log('frontend session data', session)
 
   const router = useRouter()
 

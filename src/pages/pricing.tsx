@@ -7,35 +7,6 @@ import Operations from '../shared/graphql/operations/index'
 import { loadStripe } from '@stripe/stripe-js'
 import { StripeProduct } from '../shared/util/types'
 import { getSession, useSession } from 'next-auth/react'
-import { Session } from '../util/sharedTypes/types'
-
-interface StripePrice {
-  id: string
-  active: boolean
-  billing_scheme: string
-  created: number
-  currency: string
-  livemode: boolean
-  metadata: { [key: string]: string }
-  nickname: string | null
-  product: string
-  recurring: {
-    aggregate_usage: string | null
-    interval: string
-    interval_count: number
-    usage_type: string
-  }
-  tiers: any[] | null
-  tiers_mode: string | null
-  transform_quantity: any | null
-  type: string
-  unit_amount: number | null
-  unit_amount_decimal: string | null
-}
-
-interface Props {
-  isLoggedIn: boolean
-}
 
 const Upgrade = ({
   products,
@@ -44,15 +15,10 @@ const Upgrade = ({
   products: StripeProduct[]
   isLoggedIn: boolean
 }) => {
-  // console.log('frontend ', session)
   const session = useSession()
   const [createCheckoutSession] = useMutation(
     Operations.Mutations.createCheckoutSession
   )
-
-  // if (!session) {
-  //   return <div>Loading...</div>
-  // }
 
   //I marked this explicitly with Promise<void> return type to help me remember
   //that the props interface will have to be: purchaseProduct(price: string): Promise<void>
@@ -84,7 +50,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { data: products } = await stripe.products.list({ active: true })
 
   const session = await getSession(ctx)
-  console.log('backend ', session)
 
   return {
     props: {

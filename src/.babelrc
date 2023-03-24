@@ -1,3 +1,5 @@
+//! Also add aliases to next.config.js
+//! then completely stop app and re-run npm run dev
 {
   "plugins": [
     [
@@ -5,7 +7,8 @@
       {
         "alias": {
           "react-native-alias": "react-native-web",
-          "styled-components-alias": "styled-components"
+          "styled-components-alias": "styled-components",
+          "use-session-alias": "next-auth/react"
         }
       }
     ]

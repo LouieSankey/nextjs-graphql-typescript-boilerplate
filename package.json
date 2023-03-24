@@ -71,6 +71,7 @@
     "mongodb-memory-server": "^8.10.2",
     "mongoose": "^6.9.2",
     "parcel-bundler": "^1.12.5",
+    "pretty-print-json": "^1.4.1",
     "prisma": "^4.9.0",
     "supertest": "^6.3.3",
     "ts-jest": "^29.0.5",
