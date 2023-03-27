@@ -16,4 +16,5 @@ export interface User {
   name?: string
   tier?: string
   stripeCustomerId?: string
+  error?: string
 }
