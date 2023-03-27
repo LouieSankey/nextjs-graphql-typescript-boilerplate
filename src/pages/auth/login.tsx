@@ -21,11 +21,11 @@ const Login: React.FC<IAuthProps> = () => {
   const session = useSession().data
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    if (session?.user?.error) {
-      delete session?.user?.error
-    }
-  }, [session])
+  // useEffect(() => {
+  //   if (session?.user?.error) {
+  //     delete session?.user?.error
+  //   }
+  // }, [session])
 
   const onSubmit = async (
     event: React.FormEvent,
