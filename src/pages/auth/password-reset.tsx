@@ -70,7 +70,7 @@ const PasswordReset: React.FC<IAuthProps> = ({ session }) => {
                       Please enter the email address associated with your
                       account.
                     </Text>
-                    <FormControl isInvalid={isError}>
+                    <FormControl>
                       <FormLabel color='black'>Email</FormLabel>
                       <InputGroup>
                         <Input
