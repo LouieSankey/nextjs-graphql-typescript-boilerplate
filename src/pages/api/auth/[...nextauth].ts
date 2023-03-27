@@ -24,7 +24,19 @@ export default NextAuth({
   callbacks: {
     // TODO: implement refresh token - you maybe be able to share code between web and mobile - https://next-auth.js.org/tutorials/refresh-token-rotation
     jwt: async ({ token, user }) => {
-      user && (token.user = user)
+      //this makes it so you can update the session manually after stripe checkout
+      const updatedUser = await prisma.user.findUnique({
+        where: {
+          email: token.email!
+        }
+      })
+      if (updatedUser) {
+        console.log('updated user ', updatedUser)
+        updatedUser.password = null
+        token.user = updatedUser
+      } else if (user) {
+        token.user = user
+      }
       return token
     },
     //whatever value we return here will be the value of the next-auth session
