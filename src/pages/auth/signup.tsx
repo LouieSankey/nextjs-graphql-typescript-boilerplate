@@ -3,7 +3,7 @@ import { useState } from 'react'
 import LandingTopNav from '../../components/Nav/LandingTopNav'
 
 import { useRouter } from 'next/router'
-import SharedSignUp from '../../shared/screens/signup'
+import SharedSignUp from '../../shared/screens/signUp'
 
 type ValidatorOptionType = number | boolean
 
