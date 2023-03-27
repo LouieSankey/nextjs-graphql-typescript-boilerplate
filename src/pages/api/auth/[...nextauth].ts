@@ -31,7 +31,6 @@ export default NextAuth({
         }
       })
       if (updatedUser) {
-        console.log('updated user ', updatedUser)
         updatedUser.password = null
         token.user = updatedUser
       } else if (user) {
@@ -40,14 +39,13 @@ export default NextAuth({
       return token
     },
     //whatever value we return here will be the value of the next-auth session
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       //token is used for credentials provider, and will contain the session payload when
       //the user and session parameters are null.
 
-      // console.log('ses ', session, token, user)
       return {
         ...session,
-        user: { ...session.user, ...user, ...token.user! } // combine the session and db user
+        user: { ...session.user, ...token.user! } // combine the session and db user
       }
     }
   }
