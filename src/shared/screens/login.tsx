@@ -81,6 +81,7 @@ const Login = ({
         <CustomButton
           backgroundColor={Colors.blue}
           textColor={Colors.white}
+          disabled={false}
           onPress={(e) => {
             return onSubmit(e, email, password)
           }}

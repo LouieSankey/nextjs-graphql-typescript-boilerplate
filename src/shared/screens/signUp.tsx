@@ -94,6 +94,7 @@ const SignUp = ({
           and 1 special character (@$!%*?&).
         </InputHelperText>
         <CustomButton
+          disabled={false}
           backgroundColor={Colors.blue}
           textColor={Colors.white}
           onPress={(e) => {
