@@ -40,6 +40,9 @@ export default NextAuth({
     },
     //whatever value we return here will be the value of the next-auth session
     async session({ session, token }) {
+      if (typeof session.user !== 'object' || typeof token.user !== 'object') {
+        throw new Error('Invalid session or token user')
+      }
       //token is used for credentials provider, and will contain the session payload when
       //the user and session parameters are null.
 
