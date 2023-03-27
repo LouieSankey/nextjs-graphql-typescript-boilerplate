@@ -51,13 +51,13 @@ export default function App({
   })
 
   return (
-    <ApolloProvider client={client}>
-      <SessionProvider session={session}>
+    <SessionProvider session={session}>
+      <ApolloProvider client={client}>
         <ChakraProvider theme={theme}>
           <Component {...pageProps} />
           <Toaster />
         </ChakraProvider>
-      </SessionProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </SessionProvider>
   )
 }
