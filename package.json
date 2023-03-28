@@ -12,7 +12,8 @@
     "lint": "next lint",
     "test": "cypress run --browser chrome --headed",
     "test:ci": "xvfb-run cypress run --headless",
-    "build-mobile": "next build && next export && npx cap sync"
+    "build-mobile": "next build && next export && npx cap sync",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
