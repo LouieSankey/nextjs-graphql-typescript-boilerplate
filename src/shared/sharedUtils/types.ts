@@ -1,4 +1,4 @@
-import { Session } from '../../../globalTypes/types'
+import { Session, User } from '../../../globalTypes/types'
 
 export interface IAuthProps {
   session: Session | null
