@@ -1,4 +1,4 @@
-import { IAuthProps } from '@/src/shared/util/types'
+import { IAuthProps } from '@/src/shared/sharedUtils/types'
 import { useTheme } from '@emotion/react'
 import {
   getSession,

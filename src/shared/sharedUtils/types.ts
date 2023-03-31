@@ -1,5 +1,4 @@
-// import { Session } from 'next-auth'
-import { Session, User } from '../../util/shared/types'
+import { Session } from '../../../globalTypes/types'
 
 export interface IAuthProps {
   session: Session | null

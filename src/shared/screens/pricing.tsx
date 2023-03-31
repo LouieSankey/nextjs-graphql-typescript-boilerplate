@@ -8,7 +8,7 @@ import { createStyled } from '@emotion/primitives-core'
 import PricingCard from '../components/pricing/pricingCard'
 import { useScreenSize } from '../hooks/useScreenSize'
 import { getMedia } from '../ui/responsive-css-helpers'
-import { ScreenSize, StripeProduct } from '../util/types'
+import { ScreenSize, StripeProduct } from '../sharedUtils/types'
 
 interface UpgradeOptionsProps {
   products: StripeProduct[]

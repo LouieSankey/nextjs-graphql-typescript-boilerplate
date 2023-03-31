@@ -1,6 +1,6 @@
 //by naming the file the same as the next-auth package we can overwrite it's type definitions
 import 'next-auth'
-import { User } from '../util/shared/types'
+import { User } from '../../globalTypes/types'
 //declare module allows us to add custom types and interfaces to the next auth library
 //and modify the ones that exist
 declare module 'next-auth' {

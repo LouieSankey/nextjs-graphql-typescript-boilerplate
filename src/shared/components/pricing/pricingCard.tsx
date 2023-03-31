@@ -6,7 +6,7 @@ import {
   View
   // @ts-ignore
 } from 'react-native-alias'
-import { StripeProduct } from '../../util/types'
+import { StripeProduct } from '../../sharedUtils/types'
 import { Colors } from '../../ui/constants'
 import { CustomButton } from '../../ui/buttons'
 // @ts-ignore

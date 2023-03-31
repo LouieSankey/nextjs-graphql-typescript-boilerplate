@@ -1,8 +1,8 @@
 import { client } from '@/src/shared/graphql/apollo-client'
 import Operations from '@/src/shared/graphql/operations/index'
-import { SignUpInput, SignUpResponse } from '@/src/shared/util/types'
+import { SignUpInput, SignUpResponse } from '@/src/shared/sharedUtils/types'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import stripe from '../util/stripe'
+import stripe from '../utils/stripe'
 
 const signUp = CredentialsProvider({
   id: 'sign-up-provider',

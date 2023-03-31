@@ -1,8 +1,8 @@
-import stripe from '../../../util/stripe'
 import { NextApiRequest, NextApiResponse } from 'next'
 import getRawBody from 'raw-body'
-import { prisma } from '../../../util/prisma'
+import { prisma } from '../../../utils/prisma'
 import { getSession } from 'next-auth/react'
+import stripe from '@/src/utils/stripe'
 
 export const config = {
   api: {
