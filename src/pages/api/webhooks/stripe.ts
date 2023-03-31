@@ -10,20 +10,22 @@ export const config = {
   }
 }
 //! don't forget, you need to enable port forwarding in dev
-//! stripe listen --forward-to localhost:4000/webhook
+//! stripe listen --forward-to localhost:3000/api/webhooks/stripe
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const rawBody = await getRawBody(req)
+    // const rawBody = await getRawBody(req)
 
     try {
       const sig = req.headers['stripe-signature']
       const event = stripe.webhooks.constructEvent(
-        rawBody,
+        req,
         sig,
         process.env.STRIPE_WEBHOOK_SECRET
       )
 
       switch (event.type) {
+        //! in production you must specify
+        //! which events to listen to in your webhook on stripe.com
         case 'customer.subscription.created':
           {
             const product = await stripe.products.retrieve(
@@ -31,11 +33,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             )
 
             const id = event.data.object.metadata.userId
-            console.log('user id: ', id)
 
             const tier = product.name
-            console.log('created user tier ', tier)
-            const user = await prisma.user.update({
+            await prisma.user.update({
               where: {
                 id
               },
@@ -44,8 +44,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               }
             })
           }
-          const newSession = getSession()
-          console.log('where is it ?', newSession)
           break
         case 'customer.subscription.updated':
           {
@@ -56,8 +54,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               event.data.object.plan.product
             )
             const tier = product.name
-            console.log('updated tier to ', tier)
-            const user = await prisma.user.update({
+            await prisma.user.update({
               where: {
                 id
               },
@@ -65,9 +62,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 tier
               }
             })
-
-            const newSession = getSession()
-            console.log('where is it ?', newSession)
           }
           break
 
