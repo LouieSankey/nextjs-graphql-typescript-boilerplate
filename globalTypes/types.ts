@@ -1,5 +1,3 @@
-import { DefaultUser } from 'next-auth'
-
 export interface Session {
   id?: string
   sessionToken?: string
@@ -9,8 +7,8 @@ export interface Session {
   user?: User
 }
 
-export interface User extends DefaultUser {
-  id: string
+export interface User {
+  id?: string
   username?: string
   email: string
   emailVerified?: boolean
@@ -18,5 +16,5 @@ export interface User extends DefaultUser {
   name?: string
   tier?: string
   stripeCustomerId?: string
-  error?: string
 }
+//he

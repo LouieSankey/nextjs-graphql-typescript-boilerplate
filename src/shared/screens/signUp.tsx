@@ -27,7 +27,7 @@ import {
   // @ts-ignore
 } from 'react-native-alias'
 import { CustomButton } from '../ui/buttons'
-import { emailValidator, passwordValidator } from '../util/validator'
+import { emailValidator, passwordValidator } from '../sharedUtils/validator'
 
 const SignUp = ({
   imgSrc,

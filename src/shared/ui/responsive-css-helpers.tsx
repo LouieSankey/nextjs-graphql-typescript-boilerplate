@@ -1,4 +1,4 @@
-import { ScreenOptions, ScreenSize } from '../util/types'
+import { ScreenOptions, ScreenSize } from '../sharedUtils/types'
 
 export const getMedia = (size: ScreenSize, screen: ScreenOptions) => {
   switch (size.screenSize) {

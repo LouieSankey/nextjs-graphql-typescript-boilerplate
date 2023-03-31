@@ -1,12 +1,12 @@
 import LandingTopNav from '../components/Nav/LandingTopNav'
 import UpgradeOptions from '../shared/screens/pricing'
-import stripe from '../util/stripe'
 import { GetServerSidePropsContext } from 'next'
 import { useMutation } from '@apollo/client'
 import Operations from '../shared/graphql/operations/index'
 import { loadStripe } from '@stripe/stripe-js'
-import { StripeProduct } from '../shared/util/types'
+import { StripeProduct } from '../shared/sharedUtils/types'
 import { getSession, useSession } from 'next-auth/react'
+import stripe from '../utils/stripe'
 
 const Upgrade = ({
   products,
@@ -23,6 +23,7 @@ const Upgrade = ({
   //I marked this explicitly with Promise<void> return type to help me remember
   //that the props interface will have to be: purchaseProduct(price: string): Promise<void>
   const purchaseProduct = async (priceId: string): Promise<void> => {
+    console.log('purchase 1')
     const { data } = await createCheckoutSession({
       variables: {
         priceId: priceId,
@@ -30,9 +31,11 @@ const Upgrade = ({
         userId: session.data?.user.id
       }
     })
+    console.log('purchase 2')
     const sessionId = data.createCheckoutSession.id
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!)
     await stripe?.redirectToCheckout({ sessionId })
+    console.log('purchase 3')
   }
 
   return (
@@ -48,7 +51,6 @@ const Upgrade = ({
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { data: products } = await stripe.products.list({ active: true })
-
   const session = await getSession(ctx)
 
   return {

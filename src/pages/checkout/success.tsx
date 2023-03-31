@@ -1,4 +1,4 @@
-import { Session } from '@/src/util/shared/types'
+import { Session } from '@/globalTypes/types'
 import { useQuery } from '@apollo/client'
 import { Button } from '@chakra-ui/react'
 import { NextPage } from 'next'

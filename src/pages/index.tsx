@@ -2,7 +2,6 @@ import { NextPage, NextPageContext } from 'next'
 import { getSession, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import AccountTopNav from '../components/Nav/AccountTopNav'
-import Counter from '../shared/counter'
 // import { Text, Button } from 'shared'
 import React from 'react'
 import Login from '../shared/screens/login'
@@ -18,12 +17,6 @@ const Home: NextPage = () => {
   return (
     <>
       <AccountTopNav></AccountTopNav>
-      {/* <Text>YAYYYY!!</Text>
-      <Button /> */}
-      {/* <Counter></Counter> */}
-      {/* <div style={{ width: '400px' }}> */}
-      {/* <Login mobile={false} imgSrc={'/images/google.png'}></Login> */}
-      {/* </div> */}
     </>
   )
 }
