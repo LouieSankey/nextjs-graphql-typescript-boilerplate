@@ -2,9 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import getRawBody from 'raw-body'
 import { prisma } from '../../../utils/prisma'
 import { getSession } from 'next-auth/react'
-// import stripe from '@/src/utils/stripe'
+import stripe from '@/src/utils/stripe'
 import { buffer } from 'micro'
-import Stripe from 'stripe'
 
 export const config = {
   api: {
@@ -17,16 +16,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     //! need to match the correct rawBody here, its working differently in localhost
     //! and vercel
-    // const rawBody = await getRawBody(req)
-    const requestBuffer = await buffer(req)
-    const stripe: any = new Stripe(process.env.STRIPE_KEY!, {
-      apiVersion: '2022-11-15',
-      typescript: true
-    })
+    const rawBody = await getRawBody(req)
+    // const requestBuffer = await buffer(req);
+
+    console.log('secret ', process.env.STRIPE_WEBHOOK_SECRET)
+
     try {
-      const sig = req.headers['stripe-signature'] as String
+      const sig = req.headers['stripe-signature']
       const event = stripe.webhooks.constructEvent(
-        requestBuffer.toString(),
+        rawBody,
         sig,
         process.env.STRIPE_WEBHOOK_SECRET
       )
