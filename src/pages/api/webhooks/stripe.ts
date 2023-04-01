@@ -3,6 +3,7 @@ import getRawBody from 'raw-body'
 import { prisma } from '../../../utils/prisma'
 import { getSession } from 'next-auth/react'
 import stripe from '@/src/utils/stripe'
+import { Readable } from 'stream'
 
 export const config = {
   api: {
@@ -13,7 +14,12 @@ export const config = {
 //! stripe listen --forward-to localhost:3000/api/webhooks/stripe
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const rawBody = await getRawBody(req)
+    //! need to match the correct rawBody here, its working differently in localhost
+    //! and vercel
+    // const rawBody = getRawBody(req)
+
+    const buf = await buffer(req)
+    const rawBody = buf.toString('utf8')
 
     try {
       const sig = req.headers['stripe-signature']
@@ -80,4 +86,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   res.json({ received: true })
+}
+
+async function buffer(readable: Readable) {
+  const chunks = []
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
+  }
+  return Buffer.concat(chunks)
 }
