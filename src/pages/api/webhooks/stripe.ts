@@ -13,12 +13,12 @@ export const config = {
 //! stripe listen --forward-to localhost:3000/api/webhooks/stripe
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    // const rawBody = await getRawBody(req)
+    const rawBody = await getRawBody(req)
 
     try {
       const sig = req.headers['stripe-signature']
       const event = stripe.webhooks.constructEvent(
-        req,
+        rawBody,
         sig,
         process.env.STRIPE_WEBHOOK_SECRET
       )
