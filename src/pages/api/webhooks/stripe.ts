@@ -2,8 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import getRawBody from 'raw-body'
 import { prisma } from '../../../utils/prisma'
 import { getSession } from 'next-auth/react'
-import stripe from '@/src/utils/stripe'
+// import stripe from '@/src/utils/stripe'
 import { buffer } from 'micro'
+import Stripe from 'stripe'
 
 export const config = {
   api: {
@@ -18,9 +19,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     //! and vercel
     // const rawBody = await getRawBody(req)
     const requestBuffer = await buffer(req)
-
+    const stripe: any = new Stripe(process.env.STRIPE_KEY!, {
+      apiVersion: '2022-11-15',
+      typescript: true
+    })
     try {
-      const sig = req.headers['stripe-signature']
+      const sig = req.headers['stripe-signature'] as String
       const event = stripe.webhooks.constructEvent(
         requestBuffer.toString(),
         sig,
