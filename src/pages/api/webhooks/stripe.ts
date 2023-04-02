@@ -1,37 +1,38 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import getRawBody from 'raw-body'
 import { prisma } from '../../../utils/prisma'
 import { getSession } from 'next-auth/react'
-import stripe from '@/src/utils/stripe'
+import Stripe from 'stripe'
 import { buffer } from 'micro'
 
+//not just for vercel
 export const config = {
   api: {
     bodyParser: false
   }
 }
+
 //! don't forget, you need to enable port forwarding in dev
 //! stripe listen --forward-to localhost:3000/api/webhooks/stripe
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    //! need to match the correct rawBody here, its working differently in localhost
-    //! and vercel
-    const rawBody = await getRawBody(req)
-    // const requestBuffer = await buffer(req);
+    const sig = req.headers['stripe-signature']
 
-    console.log('secret ', process.env.STRIPE_WEBHOOK_SECRET)
+    const stripe: any = new Stripe(process.env.STRIPE_KEY!, {
+      apiVersion: '2022-11-15',
+      typescript: true
+    })
+    const buf = await buffer(req)
+    const body: string = buf.toString()
 
     try {
-      const sig = req.headers['stripe-signature']
       const event = stripe.webhooks.constructEvent(
-        rawBody,
+        body,
         sig,
         process.env.STRIPE_WEBHOOK_SECRET
       )
 
       switch (event.type) {
-        //! in production you must specify
-        //! which events to listen to in your webhook on stripe.com
+        //! in production you must specify which events to listen to in your webhook on stripe.com
         case 'customer.subscription.created':
           {
             const product = await stripe.products.retrieve(
@@ -81,7 +82,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
     } catch (error) {
-      console.log(error)
+      console.log('there was an error: ', error)
     }
   }
 
