@@ -40,7 +40,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             )
 
             const id = event.data.object.metadata.userId
-
             const tier = product.name
             await prisma.user.update({
               where: {
