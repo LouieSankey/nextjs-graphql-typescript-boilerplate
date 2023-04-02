@@ -15,7 +15,7 @@ export const config = {
 //! stripe listen --forward-to localhost:3000/api/webhooks/stripe
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const sig = req.headers['stripe-signature']
+    const sig = req.headers['stripe-signature']!
 
     const stripe: any = new Stripe(process.env.STRIPE_KEY!, {
       apiVersion: '2022-11-15',
