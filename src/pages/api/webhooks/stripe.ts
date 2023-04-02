@@ -76,13 +76,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         case 'payment_intent.failed':
           console.log('payment failed')
           break
-        default:
-          {
-            console.log(`Unhandled event type: ${event.type}`)
-          }
-
-          //put this here so that the session updates before heading to the success page
-          await getSession()
+        default: {
+          console.log(`Unhandled event type: ${event.type}`)
+        }
       }
     } catch (error) {
       console.log('there was an error: ', error)
