@@ -77,6 +77,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           console.log('payment failed')
           break
         default: {
+          const newSession = await getSession()
+          console.log(newSession)
           console.log(`Unhandled event type: ${event.type}`)
         }
       }
