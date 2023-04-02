@@ -24,6 +24,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const buf = await buffer(req)
     const body: string = buf.toString()
 
+    console.log('secret: ', process.env.STRIPE_WEBHOOK_SECRET)
+
     try {
       const event = stripe.webhooks.constructEvent(
         body,
