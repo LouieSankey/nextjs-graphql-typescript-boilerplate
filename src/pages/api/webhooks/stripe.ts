@@ -11,6 +11,13 @@ export const config = {
   }
 }
 
+const stripe: any = new Stripe(process.env.STRIPE_KEY!, {
+  apiVersion: '2022-11-15',
+  typescript: true
+})
+
+const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET!
+
 //! don't forget, you need to enable port forwarding in dev
 //! stripe listen --forward-to localhost:3000/api/webhooks/stripe
 export default async function handler(
@@ -23,24 +30,17 @@ export default async function handler(
 
     const sig = req.headers['stripe-signature']!
 
-    const stripe: any = new Stripe(process.env.STRIPE_KEY!, {
-      apiVersion: '2022-11-15',
-      typescript: true
-    })
     const buf = await buffer(req)
     const body: string = buf.toString()
+
     console.log('request body', body)
 
     try {
-      const event = stripe.webhooks.constructEvent(
-        body,
-        sig,
-        process.env.STRIPE_WEBHOOK_SECRET
-      )
+      const event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
 
       switch (event.type) {
         //! in production you must specify which events to listen to in your webhook on stripe.com
-        case 'customer.subscription.created':
+        case 'customer.updated':
           {
             const product = await stripe.products.retrieve(
               event.data.object.plan.product
@@ -87,8 +87,13 @@ export default async function handler(
           // console.log(`Unhandled event type: ${event.type}`)
         }
       }
-    } catch (error) {
-      console.log('there was an error: ', error)
+    } catch (err) {
+      res
+        .status(400)
+        .send(
+          `Webhook Error 1: ${err.message} \n Request: ${req} \n Result: ${res} \n Signature: ${sig}`
+        )
+      return
     }
   }
 
