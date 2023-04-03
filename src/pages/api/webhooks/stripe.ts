@@ -21,21 +21,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       apiVersion: '2022-11-15',
       typescript: true
     })
-    const buf = await buffer(req)
-    const body: string = buf.toString()
 
-    console.log('secret: ', process.env.STRIPE_WEBHOOK_SECRET)
+    // console.log('secret: ', process.env.STRIPE_WEBHOOK_SECRET)
 
     try {
-      const event = stripe.webhooks.constructEvent(
-        body,
-        sig,
-        process.env.STRIPE_WEBHOOK_SECRET
-      )
-
       switch (event.type) {
         //! in production you must specify which events to listen to in your webhook on stripe.com
         case 'customer.subscription.created':
+          const buf = await buffer(req)
+          const body: string = buf.toString()
+
+          const event = stripe.webhooks.constructEvent(
+            body,
+            sig,
+            process.env.STRIPE_WEBHOOK_SECRET
+          )
           {
             const product = await stripe.products.retrieve(
               event.data.object.plan.product
@@ -55,6 +55,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           break
         case 'customer.subscription.updated':
           {
+            const buf = await buffer(req)
+            const body: string = buf.toString()
+
+            const event = stripe.webhooks.constructEvent(
+              body,
+              sig,
+              process.env.STRIPE_WEBHOOK_SECRET
+            )
             const id = event.data.object.metadata.userId
             console.log('user id: ', id)
             //! not importing from util/stripe
