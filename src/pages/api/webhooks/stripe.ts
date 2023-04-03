@@ -33,11 +33,13 @@ export default async function handler(
     const buf = await buffer(req)
     const body: string = buf.toString()
 
+    console.log('secret ', webhookSecret)
     console.log('request body', body)
 
     try {
+      console.log('3')
       const event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
-
+      console.log('4')
       switch (event.type) {
         //! in production you must specify which events to listen to in your webhook on stripe.com
         case 'customer..subscription.updated':
