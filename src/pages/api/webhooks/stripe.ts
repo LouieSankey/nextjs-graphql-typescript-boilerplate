@@ -38,7 +38,7 @@ export default async function handler(
     console.log('request body', body)
 
     console.log('stripe key', process.env.STRIPE_KEY!)
-    console.log('stripe ', stripe)
+    // console.log('stripe ', stripe)
 
     try {
       console.log('3')
