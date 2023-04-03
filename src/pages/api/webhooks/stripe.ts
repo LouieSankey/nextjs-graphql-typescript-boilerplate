@@ -97,6 +97,7 @@ export default async function handler(
         }
       }
     } catch (err) {
+      console.error('Webhook error:', err.message)
       res
         .status(400)
         .send(
