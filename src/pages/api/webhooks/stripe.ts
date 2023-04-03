@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '../../../utils/prisma'
 import { getSession } from 'next-auth/react'
 import Stripe from 'stripe'
-import { buffer } from 'micro'
 
 //not just for vercel
 export const config = {
@@ -23,8 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     })
     const buf = await buffer(req)
     const body: string = buf.toString()
-
-    // console.log('secret: ', process.env.STRIPE_WEBHOOK_SECRET)
+    console.log('request body', body)
 
     try {
       const event = stripe.webhooks.constructEvent(
@@ -74,12 +72,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         //   break
 
         case 'payment_intent.failed':
-          console.log('payment failed')
+          // console.log('payment failed')
           break
         default: {
           const newSession = await getSession()
           console.log(newSession)
-          console.log(`Unhandled event type: ${event.type}`)
+          // console.log(`Unhandled event type: ${event.type}`)
         }
       }
     } catch (error) {
@@ -88,4 +86,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   res.json({ received: true })
+}
+
+async function buffer(readable) {
+  const chunks = []
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
+  }
+  return Buffer.concat(chunks)
 }
