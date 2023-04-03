@@ -44,6 +44,59 @@ export default async function handler(
       console.log('3')
       event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
       console.log('4')
+
+      switch (event.type) {
+        //! in production you must specify which events to listen to in your webhook on stripe.com
+        case 'customer..subscription.updated':
+          {
+            console.log('created')
+            const product = await stripe.products.retrieve(
+              event.data.object.plan.product
+            )
+
+            const id = event.data.object.metadata.userId
+            const tier = product.name
+            await prisma.user.update({
+              where: {
+                id
+              },
+              data: {
+                tier
+              }
+            })
+          }
+          break
+        case 'customer.subscription.updated':
+          {
+            console.log('updated')
+
+            const id = event.data.object.metadata.userId
+            console.log('user id: ', id)
+            //! not importing from util/stripe
+            const product = await stripe.products.retrieve(
+              event.data.object.plan.product
+            )
+            const tier = product.name
+            await prisma.user.update({
+              where: {
+                id
+              },
+              data: {
+                tier
+              }
+            })
+          }
+          break
+
+        case 'payment_intent.failed':
+          // console.log('payment failed')
+          break
+        default: {
+          const newSession = await getSession()
+          console.log(newSession)
+          // console.log(`Unhandled event type: ${event.type}`)
+        }
+      }
     } catch (err) {
       console.error('Webhook error:', err.message)
       res
@@ -51,59 +104,6 @@ export default async function handler(
         .send(
           `Webhook Error 1: ${err.message} \n Request: ${req} \n Result: ${res} \n Signature: ${sig}`
         )
-    }
-
-    switch (event.type) {
-      //! in production you must specify which events to listen to in your webhook on stripe.com
-      case 'customer..subscription.updated':
-        {
-          console.log('created')
-          const product = await stripe.products.retrieve(
-            event.data.object.plan.product
-          )
-
-          const id = event.data.object.metadata.userId
-          const tier = product.name
-          await prisma.user.update({
-            where: {
-              id
-            },
-            data: {
-              tier
-            }
-          })
-        }
-        break
-      case 'customer.subscription.updated':
-        {
-          console.log('updated')
-
-          const id = event.data.object.metadata.userId
-          console.log('user id: ', id)
-          //! not importing from util/stripe
-          const product = await stripe.products.retrieve(
-            event.data.object.plan.product
-          )
-          const tier = product.name
-          await prisma.user.update({
-            where: {
-              id
-            },
-            data: {
-              tier
-            }
-          })
-        }
-        break
-
-      case 'payment_intent.failed':
-        // console.log('payment failed')
-        break
-      default: {
-        const newSession = await getSession()
-        console.log(newSession)
-        // console.log(`Unhandled event type: ${event.type}`)
-      }
     }
   }
 
