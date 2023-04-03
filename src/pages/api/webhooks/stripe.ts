@@ -27,9 +27,7 @@ export default async function handler(
   console.log('1')
   if (req.method === 'POST') {
     console.log('2')
-
     const sig = req.headers['stripe-signature']!
-
     const buf = await buffer(req)
     const body: string = buf.toString()
 
@@ -39,7 +37,7 @@ export default async function handler(
 
     console.log('stripe key', process.env.STRIPE_KEY!)
     // console.log('stripe ', stripe)
-    let event
+    let event: Stripe.Event
     try {
       console.log('3')
       event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
@@ -50,41 +48,41 @@ export default async function handler(
         case 'customer..subscription.updated':
           {
             console.log('created')
-            const product = await stripe.products.retrieve(
-              event.data.object.plan.product
-            )
+            // const product = await stripe.products.retrieve(
+            //   event.data.object.plan.product
+            // )
 
-            const id = event.data.object.metadata.userId
-            const tier = product.name
-            await prisma.user.update({
-              where: {
-                id
-              },
-              data: {
-                tier
-              }
-            })
+            // const id = event.data.object.metadata.userId
+            // const tier = product.name
+            // await prisma.user.update({
+            //   where: {
+            //     id
+            //   },
+            //   data: {
+            //     tier
+            //   }
+            // })
           }
           break
         case 'customer.subscription.updated':
           {
             console.log('updated')
 
-            const id = event.data.object.metadata.userId
-            console.log('user id: ', id)
-            //! not importing from util/stripe
-            const product = await stripe.products.retrieve(
-              event.data.object.plan.product
-            )
-            const tier = product.name
-            await prisma.user.update({
-              where: {
-                id
-              },
-              data: {
-                tier
-              }
-            })
+            // const id = event.data.object.metadata.userId
+            // console.log('user id: ', id)
+            // //! not importing from util/stripe
+            // const product = await stripe.products.retrieve(
+            //   event.data.object.plan.product
+            // )
+            // const tier = product.name
+            // await prisma.user.update({
+            //   where: {
+            //     id
+            //   },
+            //   data: {
+            //     tier
+            //   }
+            // })
           }
           break
 
