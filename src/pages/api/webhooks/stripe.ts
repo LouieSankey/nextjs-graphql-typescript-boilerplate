@@ -34,6 +34,7 @@ export default async function handler(
     const body: string = buf.toString()
 
     console.log('secret ', webhookSecret)
+    console.log('sig ', sig)
     console.log('request body', body)
 
     try {
