@@ -12,7 +12,7 @@ export const config = {
 
 //! don't forget, you need to enable port forwarding in dev
 //! stripe listen --forward-to localhost:3000/api/webhooks/stripe
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log('1')
   if (req.method === 'POST') {
     console.log('2')
