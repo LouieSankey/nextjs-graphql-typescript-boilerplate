@@ -40,8 +40,9 @@ export default async function handler(
 
       switch (event.type) {
         //! in production you must specify which events to listen to in your webhook on stripe.com
-        case 'customer.updated':
+        case 'customer..subscription.updated':
           {
+            console.log('created')
             const product = await stripe.products.retrieve(
               event.data.object.plan.product
             )
@@ -58,25 +59,27 @@ export default async function handler(
             })
           }
           break
-        // case 'customer.subscription.updated':
-        //   {
-        //     const id = event.data.object.metadata.userId
-        //     console.log('user id: ', id)
-        //     //! not importing from util/stripe
-        //     const product = await stripe.products.retrieve(
-        //       event.data.object.plan.product
-        //     )
-        //     const tier = product.name
-        //     await prisma.user.update({
-        //       where: {
-        //         id
-        //       },
-        //       data: {
-        //         tier
-        //       }
-        //     })
-        //   }
-        //   break
+        case 'customer.subscription.updated':
+          {
+            console.log('updated')
+
+            const id = event.data.object.metadata.userId
+            console.log('user id: ', id)
+            //! not importing from util/stripe
+            const product = await stripe.products.retrieve(
+              event.data.object.plan.product
+            )
+            const tier = product.name
+            await prisma.user.update({
+              where: {
+                id
+              },
+              data: {
+                tier
+              }
+            })
+          }
+          break
 
         case 'payment_intent.failed':
           // console.log('payment failed')
