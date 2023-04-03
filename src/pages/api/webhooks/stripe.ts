@@ -37,6 +37,9 @@ export default async function handler(
     console.log('sig ', sig)
     console.log('request body', body)
 
+    console.log('stripe key', process.env.STRIPE_KEY!)
+    console.log('stripe ', stripe)
+
     try {
       console.log('3')
       const event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
