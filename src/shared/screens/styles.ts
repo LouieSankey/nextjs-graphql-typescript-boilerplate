@@ -83,7 +83,7 @@ export const ShowPasswordIcon = styled(Image)`
   height: 20px;
 `
 
-export const BaseButton = styled(withHoverOpacity)`
+export const BaseButton = styled(TouchableOpacity)`
   width: 100%;
   align-items: center;
   border-radius: ${BorderRadii.small};

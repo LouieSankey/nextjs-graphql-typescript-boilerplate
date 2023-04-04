@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  TouchableOpacity
   // @ts-ignore
 } from 'react-native-alias'
 
@@ -28,52 +29,52 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
       <RowContainer>
         <Link href='/pricing'>
           <CustomButtonWrapper>
-            <CustomButton
+            <TouchableOpacity
               textColor={Colors.white}
               backgroundColor={Colors.black}
               borderColor={Colors.mediumGrey}
               hoverColor={Colors.darkGrey}
             >
               <NavButtonText>Pricing</NavButtonText>
-            </CustomButton>
+            </TouchableOpacity>
           </CustomButtonWrapper>
         </Link>
 
         {isLoggedIn ? (
           <Link href='/'>
             <CustomButtonWrapper>
-              <CustomButton
+              <TouchableOpacity
                 textColor={Colors.white}
                 backgroundColor={Colors.brandPrimary}
                 hoverColor={Colors.brandSecondary}
               >
                 <NavButtonText>Go to App</NavButtonText>
-              </CustomButton>
+              </TouchableOpacity>
             </CustomButtonWrapper>
           </Link>
         ) : (
           <>
             <Link href='/auth/login'>
               <CustomButtonWrapper>
-                <CustomButton
+                <TouchableOpacity
                   textColor={Colors.white}
                   backgroundColor={Colors.black}
                   borderColor={Colors.white}
                   hoverColor={Colors.darkGrey}
                 >
                   <NavButtonText>Log in</NavButtonText>
-                </CustomButton>
+                </TouchableOpacity>
               </CustomButtonWrapper>
             </Link>
             <Link href='/auth/signup'>
               <CustomButtonWrapper>
-                <CustomButton
+                <TouchableOpacity
                   textColor={Colors.white}
                   backgroundColor={Colors.brandPrimary}
                   hoverColor={Colors.brandSecondary}
                 >
                   <NavButtonText>Get Started Free!</NavButtonText>
-                </CustomButton>
+                </TouchableOpacity>
               </CustomButtonWrapper>
             </Link>
           </>
