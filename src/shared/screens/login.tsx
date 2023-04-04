@@ -79,7 +79,7 @@ const Login = ({
         {authError !== '' && <FormErrorMessage>{authError}</FormErrorMessage>}
 
         <CustomButton
-          backgroundColor={Colors.blue}
+          backgroundColor={Colors.brandPrimary}
           textColor={Colors.white}
           disabled={false}
           onPress={(e) => {

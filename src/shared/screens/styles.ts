@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Button,
   Image
   // @ts-ignore
 } from 'react-native-alias'
@@ -85,16 +84,20 @@ export const ShowPasswordIcon = styled(Image)`
 `
 
 export const BaseButton = styled(withHoverOpacity)`
-  padding: 10px;
+  width: 100%;
   align-items: center;
   border-radius: ${BorderRadii.small};
   opacity: 0.9;
-  background-color: ${(props: { backgroundColor: any }) =>
+  background-color: ${(props: { backgroundColor: string }) =>
     props.backgroundColor};
+  border: 1px solid ${(props: { borderColor: string }) =>
+    props.borderColor || 'transparent'};
+  padding: 10px 18px;
+  margin 0px;
 `
 
 export const BaseButtonText = styled(Text)`
-  color: ${(props: { textColor: any }) => props.textColor};
+  color: ${(props: { textColor: string }) => props.textColor};
   font-size: ${FontSizes.large};
 `
 
@@ -128,7 +131,7 @@ export const ForgotPasswordContainer = styled(View)`
 `
 
 export const ForgotPasswordText = styled(withTouchableText)`
-  color: ${Colors.blue};
+  color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium};
   margin-top: 10px;
 `
@@ -148,7 +151,7 @@ export const OrDivider = styled(View)`
 export const OrDividerText = styled(Text)`
   padding-horizontal: 10px;
   font-size: ${FontSizes.medium};
-  color: ${Colors.gray};
+  color: ${Colors.mediumGrey};
 `
 
 export const SignupContainer = styled(View)`

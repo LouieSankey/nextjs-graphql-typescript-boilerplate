@@ -43,7 +43,8 @@ const PricingCard = ({ product, purchaseProduct }: PricingCardProps) => {
       <SelectButtonWrapper>
         <CustomButton
           textColor={Colors.white}
-          backgroundColor={isSubscribed ? Colors.blue : 'black'}
+          backgroundColor={isSubscribed ? Colors.brandPrimary : Colors.black}
+          hoverColor={isSubscribed ? Colors.brandSecondary : Colors.darkGrey}
           onPress={() => purchaseProduct(product.default_price)}
           disabled={isSubscribed} // disable the button if subscribed
         >

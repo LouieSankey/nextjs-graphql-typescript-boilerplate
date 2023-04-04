@@ -1,10 +1,14 @@
 export const Colors = {
   white: '#fff',
-  lightGrey: '#ddd',
-  blue: '#1e90ff',
-  gray: '#aaa',
-  darkGrey: '#333',
-  red: '#FF0000'
+  brandPrimary: '#26598f',
+  brandSecondary: '#205c94',
+  brandTertiary: '#438bb8',
+  mediumGrey: '#d4d4d4',
+  lightGrey: '#FBFBFB',
+  darkGrey: '#111111',
+  red: 'red',
+
+  black: 'black'
 }
 
 export const FontSizes = {

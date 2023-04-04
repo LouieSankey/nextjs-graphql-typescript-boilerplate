@@ -95,7 +95,7 @@ const SignUp = ({
         </InputHelperText>
         <CustomButton
           disabled={false}
-          backgroundColor={Colors.blue}
+          backgroundColor={Colors.brandPrimary}
           textColor={Colors.white}
           onPress={(e) => {
             return onSubmit(e, email, password)

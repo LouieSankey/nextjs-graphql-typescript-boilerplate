@@ -4,8 +4,10 @@ import { BaseButton, BaseButtonText } from '../screens/styles'
 interface ButtonProps {
   textColor: string
   backgroundColor: string
-  disabled: boolean
-  onPress: (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>
+  hoverColor?: string
+  borderColor?: string
+  disabled?: boolean
+  onPress?: (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>
   children: React.ReactNode
 }
 
@@ -13,12 +15,30 @@ interface ButtonProps {
 export const CustomButton = ({
   textColor,
   backgroundColor,
+  hoverColor,
+  borderColor,
   disabled,
   onPress,
   children
 }: ButtonProps) => {
+  const [color, setColor] = useState(backgroundColor)
+
+  const handleMouseEnter = () => {
+    setColor(hoverColor)
+  }
+
+  const handleMouseLeave = () => {
+    setColor(backgroundColor)
+  }
+
   return (
-    <BaseButton backgroundColor={backgroundColor} onPress={onPress}>
+    <BaseButton
+      backgroundColor={color}
+      borderColor={borderColor}
+      onPress={onPress}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <BaseButtonText textColor={textColor}>{children}</BaseButtonText>
     </BaseButton>
   )
