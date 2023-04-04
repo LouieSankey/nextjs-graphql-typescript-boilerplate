@@ -3,6 +3,7 @@ export const Colors = {
   brandPrimary: '#26598f',
   brandSecondary: '#205c94',
   brandTertiary: '#438bb8',
+  bodyPrimary: '#1a202c',
   mediumGrey: '#d4d4d4',
   lightGrey: '#FBFBFB',
   darkGrey: '#111111',

@@ -14,11 +14,15 @@ import {
 import { CustomButton } from '@/src/shared/ui/buttons'
 import { Colors } from '@/src/shared/ui/constants'
 
+import { useRouter } from 'next/router'
+
 interface Props {
   isLoggedIn: boolean
 }
 
 const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
+  const router = useRouter()
+
   return (
     <Container>
       <LogoContainer>
@@ -27,56 +31,60 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
         </Link>
       </LogoContainer>
       <RowContainer>
-        <Link href='/pricing'>
-          <CustomButtonWrapper>
-            <TouchableOpacity
-              textColor={Colors.white}
-              backgroundColor={Colors.black}
-              borderColor={Colors.mediumGrey}
-              hoverColor={Colors.darkGrey}
-            >
-              <NavButtonText>Pricing</NavButtonText>
-            </TouchableOpacity>
-          </CustomButtonWrapper>
-        </Link>
+        <CustomButtonWrapper>
+          <CustomButton
+            textColor={Colors.white}
+            backgroundColor={Colors.black}
+            borderColor={Colors.mediumGrey}
+            hoverColor={Colors.darkGrey}
+            onPress={async () => {
+              await router.push('/pricing')
+            }}
+          >
+            <NavButtonText>Pricing</NavButtonText>
+          </CustomButton>
+        </CustomButtonWrapper>
 
         {isLoggedIn ? (
-          <Link href='/'>
+          <CustomButtonWrapper>
+            <CustomButton
+              textColor={Colors.white}
+              backgroundColor={Colors.brandPrimary}
+              hoverColor={Colors.brandSecondary}
+              onPress={async () => {
+                await router.push('/')
+              }}
+            >
+              <NavButtonText>Go to App</NavButtonText>
+            </CustomButton>
+          </CustomButtonWrapper>
+        ) : (
+          <>
             <CustomButtonWrapper>
-              <TouchableOpacity
+              <CustomButton
+                textColor={Colors.white}
+                backgroundColor={Colors.black}
+                borderColor={Colors.white}
+                hoverColor={Colors.darkGrey}
+                onPress={async () => {
+                  await router.push('/auth/login')
+                }}
+              >
+                <NavButtonText>Log in</NavButtonText>
+              </CustomButton>
+            </CustomButtonWrapper>
+            <CustomButtonWrapper>
+              <CustomButton
                 textColor={Colors.white}
                 backgroundColor={Colors.brandPrimary}
                 hoverColor={Colors.brandSecondary}
+                onPress={async () => {
+                  await router.push('/auth/signup')
+                }}
               >
-                <NavButtonText>Go to App</NavButtonText>
-              </TouchableOpacity>
+                <NavButtonText>Get Started Free!</NavButtonText>
+              </CustomButton>
             </CustomButtonWrapper>
-          </Link>
-        ) : (
-          <>
-            <Link href='/auth/login'>
-              <CustomButtonWrapper>
-                <TouchableOpacity
-                  textColor={Colors.white}
-                  backgroundColor={Colors.black}
-                  borderColor={Colors.white}
-                  hoverColor={Colors.darkGrey}
-                >
-                  <NavButtonText>Log in</NavButtonText>
-                </TouchableOpacity>
-              </CustomButtonWrapper>
-            </Link>
-            <Link href='/auth/signup'>
-              <CustomButtonWrapper>
-                <TouchableOpacity
-                  textColor={Colors.white}
-                  backgroundColor={Colors.brandPrimary}
-                  hoverColor={Colors.brandSecondary}
-                >
-                  <NavButtonText>Get Started Free!</NavButtonText>
-                </TouchableOpacity>
-              </CustomButtonWrapper>
-            </Link>
           </>
         )}
       </RowContainer>
@@ -87,7 +95,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
 const styled = createStyled(StyleSheet)
 
 const Container = styled(View)`
-  background-color: #1a202c;
+  background-color: ${Colors.bodyPrimary};
   width: 100%;
   padding: 12px;
   flex-direction: row;
@@ -107,7 +115,7 @@ const CustomButtonWrapper = styled(View)`
 const LogoContainer = styled(View)``
 
 const LogoImage = styled(Image)`
-  width: 60px;
+  width: 140px;
   height: 60px;
 `
 
