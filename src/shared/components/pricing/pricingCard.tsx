@@ -66,7 +66,7 @@ const Card = styled(View)`
   padding: 16px;
   max-width: 100%;
   border-width: 2px;
-  border-color: ${Colors.blue};
+  border-color: ${Colors.brandPrimary};
 `
 
 const Title = styled(Text)`
