@@ -37,7 +37,7 @@ const AccountTopNav: React.FC = () => {
               await router.push('/pricing')
             }}
           >
-            <NavButtonText>Pricing</NavButtonText>
+            Pricing
           </CustomButton>
         </CustomButtonWrapper>
         <CustomButtonWrapper>
@@ -50,7 +50,7 @@ const AccountTopNav: React.FC = () => {
               router.replace('splash')
             }}
           >
-            <NavButtonText>Sign Out</NavButtonText>
+            Sign Out
           </CustomButton>
         </CustomButtonWrapper>
       </RowContainer>
@@ -83,11 +83,6 @@ const LogoContainer = styled(View)``
 const LogoImage = styled(Image)`
   width: 140px;
   height: 60px;
-`
-
-const NavButtonText = styled(Text)`
-  color: #fff;
-  font-size: 16px;
 `
 
 export default AccountTopNav

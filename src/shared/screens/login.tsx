@@ -5,9 +5,7 @@ import {
   SignupText,
   ForgotPasswordText,
   Form,
-  GoogleButtonContainer,
   GoogleButtonIcon,
-  GoogleButtonText,
   Header,
   HeaderText,
   Input,
@@ -81,6 +79,7 @@ const Login = ({
         <CustomButton
           backgroundColor={Colors.brandPrimary}
           textColor={Colors.white}
+          hoverColor={Colors.brandSecondary}
           disabled={false}
           onPress={(e) => {
             return onSubmit(e, email, password)
@@ -98,24 +97,27 @@ const Login = ({
         <OrDivider />
       </OrDividerContainer>
       {/* onPress will allow you to click */}
-      <GoogleButtonContainer
+      <CustomButton
+        textColor={Colors.black}
+        backgroundColor={Colors.white}
+        borderColor={Colors.mediumGrey}
+        hoverColor={Colors.lightGrey}
         onPress={
           mobile
-            ? () => {
-                signInGoogle({ useProxy: true, showInRecents: true })
+            ? async () => {
+                await signInGoogle({ useProxy: true, showInRecents: true })
               }
-            : () => {
-                signInGoogle('google')
+            : async () => {
+                await signInGoogle('google')
               }
         }
       >
         <GoogleButtonIcon source={mobile ? imgSrc : '/images/google.png'} />
-        <GoogleButtonText>Continue with Google</GoogleButtonText>
-      </GoogleButtonContainer>
+        <b>Continue with Google</b>
+      </CustomButton>
 
       <SignupContainer>
         <SignupText>Need an account?</SignupText>
-
         <SignupLink
           onPress={
             mobile

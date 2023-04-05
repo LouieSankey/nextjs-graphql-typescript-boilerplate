@@ -83,47 +83,32 @@ export const ShowPasswordIcon = styled(Image)`
   height: 20px;
 `
 
-export const BaseButton = styled(TouchableOpacity)`
-  width: 100%;
-  align-items: center;
-  border-radius: ${BorderRadii.small};
-  opacity: 0.9;
-  background-color: ${(props: { backgroundColor: string }) =>
-    props.backgroundColor};
-  border: 1px solid ${(props: { borderColor: string }) =>
-    props.borderColor || 'transparent'};
-  padding: 10px 18px;
-  margin 0px;
-`
+// export const GoogleButtonContainer = styled(TouchableOpacity)`
+//   flex-direction: row;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: ${Colors.mediumGrey};
+//   padding: 10px;
+//   border-radius: ${BorderRadii.small};
+//   border-color: ${Colors.lightGrey};
+//   border-width: 1px;
+//   margin-bottom: 10px;
+//   width: 100%;
+// `
 
-export const BaseButtonText = styled(Text)`
-  color: ${(props: { textColor: string }) => props.textColor};
-  font-size: ${FontSizes.large};
-`
-
-export const GoogleButtonContainer = styled(TouchableOpacity)`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: ${Colors.white};
-  padding: 10px;
-  border-radius: ${BorderRadii.small};
-  border-color: ${Colors.lightGrey};
-  border-width: 1px;
-  margin-bottom: 10px;
-  width: 100%;
-`
-
-export const GoogleButtonText = styled(Text)`
-  font-size: ${FontSizes.medium};
-  font-weight: bold;
-  color: ${Colors.darkGrey};
-  margin-left: 10px;
-`
+// export const GoogleButtonText = styled(Text)`
+//   font-size: ${FontSizes.medium};
+//   font-weight: bold;
+//   color: ${Colors.darkGrey};
+//   margin-left: 10px;
+// `
 
 export const GoogleButtonIcon = styled(Image)`
   width: 20px;
   height: 20px;
+  margin-right: 6px;
+  margin-left: -6px;
+  margin-bottom: -4px;
 `
 
 export const ForgotPasswordContainer = styled(View)`
@@ -157,6 +142,7 @@ export const OrDividerText = styled(Text)`
 export const SignupContainer = styled(View)`
   flex-direction: row;
   align-items: center;
+  margin-top: 10px;
 `
 
 export const SignupText = styled(Text)`

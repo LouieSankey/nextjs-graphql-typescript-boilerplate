@@ -4,9 +4,7 @@ import {
   Container,
   Form,
   FormErrorMessage,
-  GoogleButtonContainer,
   GoogleButtonIcon,
-  GoogleButtonText,
   Header,
   HeaderText,
   Input,
@@ -95,6 +93,7 @@ const SignUp = ({
         </InputHelperText>
         <CustomButton
           disabled={false}
+          hoverColor={Colors.brandSecondary}
           backgroundColor={Colors.brandPrimary}
           textColor={Colors.white}
           onPress={(e) => {
@@ -109,20 +108,24 @@ const SignUp = ({
         <OrDividerText>OR</OrDividerText>
         <OrDivider />
       </OrDividerContainer>
-      <GoogleButtonContainer
+      <CustomButton
+        textColor={Colors.black}
+        backgroundColor={Colors.white}
+        hoverColor={Colors.lightGrey}
+        borderColor={Colors.mediumGrey}
         onPress={
           mobile
-            ? () => {
-                signUpGoogle({ useProxy: true, showInRecents: true })
+            ? async () => {
+                await signUpGoogle({ useProxy: true, showInRecents: true })
               }
-            : () => {
-                signUpGoogle('google')
+            : async () => {
+                await signUpGoogle('google')
               }
         }
       >
         <GoogleButtonIcon source={mobile ? imgSrc : '/images/google.png'} />
-        <GoogleButtonText>Continue with Google</GoogleButtonText>
-      </GoogleButtonContainer>
+        <b>Continue with Google</b>
+      </CustomButton>
 
       <SignupContainer>
         <SignupText>Already have an account?</SignupText>

@@ -41,7 +41,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
               await router.push('/pricing')
             }}
           >
-            <NavButtonText>Pricing</NavButtonText>
+            Pricing
           </CustomButton>
         </CustomButtonWrapper>
 
@@ -55,7 +55,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
                 await router.push('/')
               }}
             >
-              <NavButtonText>Go to App</NavButtonText>
+              Go to App
             </CustomButton>
           </CustomButtonWrapper>
         ) : (
@@ -70,7 +70,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
                   await router.push('/auth/login')
                 }}
               >
-                <NavButtonText>Log in</NavButtonText>
+                Log in
               </CustomButton>
             </CustomButtonWrapper>
             <CustomButtonWrapper>
@@ -82,7 +82,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
                   await router.push('/auth/signup')
                 }}
               >
-                <NavButtonText>Get Started Free!</NavButtonText>
+                Get Started Free!
               </CustomButton>
             </CustomButtonWrapper>
           </>
@@ -117,11 +117,6 @@ const LogoContainer = styled(View)``
 const LogoImage = styled(Image)`
   width: 140px;
   height: 60px;
-`
-
-const NavButtonText = styled(Text)`
-  color: #fff;
-  font-size: 16px;
 `
 
 export default LandingTopNav

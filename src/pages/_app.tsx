@@ -1,5 +1,4 @@
 import { ApolloProvider } from '@apollo/client'
-import { ChakraProvider, extendTheme, ThemeConfig } from '@chakra-ui/react'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { client } from '../shared/graphql/apollo-client'
@@ -18,7 +17,6 @@ export default function App({
       background-color: ${Colors.black};
     }
   `
-
   return (
     <SessionProvider session={session}>
       <ApolloProvider client={client}>

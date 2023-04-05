@@ -1,14 +1,14 @@
 export const Colors = {
   white: '#fff',
-  brandPrimary: '#26598f',
-  brandSecondary: '#205c94',
+  brandPrimary: '#6096B4',
+  brandSecondary: '#93BFCF',
   brandTertiary: '#438bb8',
+  brandQuaternary: 'EEE9DA',
   bodyPrimary: '#1a202c',
+  darkGrey: '#555555',
   mediumGrey: '#d4d4d4',
-  lightGrey: '#FBFBFB',
-  darkGrey: '#111111',
+  lightGrey: '#DDDDDD',
   red: 'red',
-
   black: 'black'
 }
 
