@@ -53,6 +53,7 @@ const SignUp = ({
         <InputLabelText>Email</InputLabelText>
         <InputContainer>
           <Input
+            nativeID='signup-email'
             value={email}
             onChangeText={(text: React.SetStateAction<string>) =>
               setEmail(text)
@@ -64,6 +65,7 @@ const SignUp = ({
         <InputLabelText>Password</InputLabelText>
         <InputContainer>
           <Input
+            nativeID='signup-password'
             secureTextEntry={!showPassword}
             value={password}
             onChangeText={(text: React.SetStateAction<string>) =>
@@ -124,7 +126,7 @@ const SignUp = ({
         }
       >
         <GoogleButtonIcon source={mobile ? imgSrc : '/images/google.png'} />
-        <b>Continue with Google</b>
+        Continue with Google
       </CustomButton>
 
       <SignupContainer>

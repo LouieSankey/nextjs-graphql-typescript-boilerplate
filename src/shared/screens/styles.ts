@@ -11,10 +11,7 @@ import {
 import { BorderRadii, Colors, FontSizes } from '../ui/constants'
 // @ts-ignore
 import { createStyled } from '@emotion/primitives-core'
-import {
-  withTouchableText,
-  withHoverOpacity
-} from '../ui/styled-component-wrappers'
+import { withTouchableText } from '../ui/styled-component-wrappers'
 
 const styled = createStyled(StyleSheet)
 
@@ -82,26 +79,6 @@ export const ShowPasswordIcon = styled(Image)`
   width: 20px;
   height: 20px;
 `
-
-// export const GoogleButtonContainer = styled(TouchableOpacity)`
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: center;
-//   background-color: ${Colors.mediumGrey};
-//   padding: 10px;
-//   border-radius: ${BorderRadii.small};
-//   border-color: ${Colors.lightGrey};
-//   border-width: 1px;
-//   margin-bottom: 10px;
-//   width: 100%;
-// `
-
-// export const GoogleButtonText = styled(Text)`
-//   font-size: ${FontSizes.medium};
-//   font-weight: bold;
-//   color: ${Colors.darkGrey};
-//   margin-left: 10px;
-// `
 
 export const GoogleButtonIcon = styled(Image)`
   width: 20px;

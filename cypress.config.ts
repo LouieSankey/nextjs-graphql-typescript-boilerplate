@@ -3,7 +3,7 @@ const config = {
     setupNodeEvents() {},
     env: {
       test_email: 'test@example.com',
-      test_password: 'password'
+      test_password: 'Password11!'
     }
   }
 }

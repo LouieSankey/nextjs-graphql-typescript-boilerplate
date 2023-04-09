@@ -9,6 +9,7 @@ import {
 } from 'react-native-alias'
 // @ts-ignore
 import { BorderRadii, Colors, FontSizes } from '../ui/constants'
+
 interface ButtonProps {
   textColor: string
   backgroundColor: string
@@ -38,14 +39,17 @@ export const CustomButton = ({
   const handleMouseLeave = () => {
     setColor(backgroundColor)
   }
+  //on web to make it so that the background color can change on hover
   useEffect(() => {
     if (buttonRef.current) {
-      buttonRef.current.style.transition = 'background-color 0.2s ease-in-out'
+      try {
+        buttonRef.current.style.transition = 'background-color 0.2s ease-in-out'
+        buttonRef.current.style.backgroundColor = color
+      } catch (error) {}
     }
-  }, [])
+  }, [color])
   return (
     <BaseButton
-      style={{ '--bg-color': color }}
       ref={buttonRef}
       backgroundColor={color}
       borderColor={borderColor}
@@ -53,11 +57,9 @@ export const CustomButton = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <BaseButtonChildrenWrapper>
-        <BaseButtonText textColor={textColor} fontSize={FontSizes.medium}>
-          {children}
-        </BaseButtonText>
-      </BaseButtonChildrenWrapper>
+      <BaseButtonText textColor={textColor} fontSize={FontSizes.medium}>
+        {children}
+      </BaseButtonText>
     </BaseButton>
   )
 }
@@ -69,7 +71,8 @@ const BaseButton = styled(TouchableOpacity)`
   align-items: center;
   border-radius: ${BorderRadii.small};
   opacity: 0.9;
-  background-color: var(--bg-color);
+  background-color: ${(props: { backgroundColor: string }) =>
+    props.backgroundColor || 'transparent'};
   border: 1px solid ${(props: { borderColor: string }) =>
     props.borderColor || 'transparent'};
   padding: 10px 18px;
@@ -79,10 +82,4 @@ const BaseButton = styled(TouchableOpacity)`
 const BaseButtonText = styled(Text)`
   color: ${(props: { textColor: string }) => props.textColor};
   font-size: ${(props: { fontSize: string }) => props.fontSize};
-`
-
-const BaseButtonChildrenWrapper = styled(View)`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
 `
