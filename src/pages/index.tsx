@@ -12,11 +12,11 @@ const Home: NextPage = () => {
 
   // console.log('frontend session data', session)
 
-  const router = useRouter()
-
   return (
     <>
-      <AccountTopNav></AccountTopNav>
+      <div id='home-screen'>
+        <AccountTopNav></AccountTopNav>
+      </div>
     </>
   )
 }

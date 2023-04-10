@@ -37,7 +37,7 @@ const AccountTopNav: React.FC = () => {
             Pricing
           </CustomButton>
         </CustomButtonWrapper>
-        <CustomButtonWrapper id='sign-out'>
+        <CustomButtonWrapper>
           <CustomButton
             textColor={Colors.white}
             backgroundColor={theme.colors.primary}
