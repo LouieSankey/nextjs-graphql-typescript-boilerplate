@@ -8,14 +8,17 @@ import { Colors } from '../shared/ui/constants'
 import { useState } from 'react'
 import { dayTheme } from '../shared/ui/theme/dayTheme'
 import { nightTheme } from '../shared/ui/theme/nightTheme'
+import AppContext from '../shared/context/appContext'
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps }
 }: AppProps) {
   const [theme, setTheme] = useState('day')
+  const [myState, setMyState] = useState('initial value')
 
   function toggleTheme() {
+    console.log(theme)
     setTheme(theme === 'day' ? 'night' : 'day')
   }
 
@@ -29,16 +32,18 @@ export default function App({
 
   return (
     <>
-      {/* <button onClick={toggleTheme}>Toggle theme</button> */}
-      <ThemeProvider theme={theme === 'day' ? dayTheme : nightTheme}>
-        <SessionProvider session={session}>
-          <ApolloProvider client={client}>
-            <Global styles={globalStyles} />
-            <Component {...pageProps} />
-            <Toaster />
-          </ApolloProvider>
-        </SessionProvider>
-      </ThemeProvider>
+      <AppContext.Provider value={{ toggleTheme }}>
+        {/* <button onClick={toggleTheme}>Toggle theme</button> */}
+        <ThemeProvider theme={theme === 'day' ? dayTheme : nightTheme}>
+          <SessionProvider session={session}>
+            <ApolloProvider client={client}>
+              <Global styles={globalStyles} />
+              <Component {...pageProps} />
+              <Toaster />
+            </ApolloProvider>
+          </SessionProvider>
+        </ThemeProvider>
+      </AppContext.Provider>
     </>
   )
 }

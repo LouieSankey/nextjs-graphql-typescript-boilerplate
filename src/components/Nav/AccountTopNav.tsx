@@ -5,16 +5,28 @@ import { createStyled } from '@emotion/primitives-core'
 import {
   StyleSheet,
   View,
-  Image
+  Image,
+  Switch
   // @ts-ignore
 } from 'react-native-alias'
 import { CustomButton } from '@/src/shared/ui/buttons'
 import { Colors } from '@/src/shared/ui/constants'
 import { useTheme } from '@emotion/react'
+import { useContext, useState } from 'react'
+import AppContext from '@/src/shared/context/appContext'
 
 const AccountTopNav: React.FC = () => {
   const router = useRouter()
   const theme = useTheme()
+
+  const { toggleTheme } = useContext(AppContext)
+  const [isChecked, setIsChecked] = useState(false)
+
+  function handleChange(value) {
+    console.log(value)
+    setIsChecked(value)
+    toggleTheme()
+  }
 
   return (
     <Container>
@@ -24,6 +36,7 @@ const AccountTopNav: React.FC = () => {
         </Link>
       </LogoContainer>
       <RowContainer>
+        <Switch onValueChange={handleChange} value={isChecked} />
         <CustomButtonWrapper>
           <CustomButton
             textColor={Colors.white}
