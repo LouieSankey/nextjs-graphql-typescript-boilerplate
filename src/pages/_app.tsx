@@ -3,13 +3,22 @@ import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { client } from '../shared/graphql/apollo-client'
 import { Toaster } from 'react-hot-toast'
-import { Global, css } from '@emotion/react'
+import { Global, css, ThemeProvider, Theme } from '@emotion/react'
 import { Colors } from '../shared/ui/constants'
+import { useState } from 'react'
+import { dayTheme } from '../shared/ui/theme/dayTheme'
+import { nightTheme } from '../shared/ui/theme/nightTheme'
 
 export default function App({
   Component,
   pageProps: { session, ...pageProps }
 }: AppProps) {
+  const [theme, setTheme] = useState('day')
+
+  function toggleTheme() {
+    setTheme(theme === 'day' ? 'night' : 'day')
+  }
+
   const globalStyles = css`
     body {
       font-family: Arial, sans-serif;
@@ -17,13 +26,19 @@ export default function App({
       background-color: ${Colors.black};
     }
   `
+
   return (
-    <SessionProvider session={session}>
-      <ApolloProvider client={client}>
-        <Global styles={globalStyles} />
-        <Component {...pageProps} />
-        <Toaster />
-      </ApolloProvider>
-    </SessionProvider>
+    <>
+      {/* <button onClick={toggleTheme}>Toggle theme</button> */}
+      <ThemeProvider theme={theme === 'day' ? dayTheme : nightTheme}>
+        <SessionProvider session={session}>
+          <ApolloProvider client={client}>
+            <Global styles={globalStyles} />
+            <Component {...pageProps} />
+            <Toaster />
+          </ApolloProvider>
+        </SessionProvider>
+      </ThemeProvider>
+    </>
   )
 }

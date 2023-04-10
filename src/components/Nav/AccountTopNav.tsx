@@ -1,23 +1,20 @@
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router'
-
 import { createStyled } from '@emotion/primitives-core'
-
 import {
   StyleSheet,
-  Text,
   View,
-  Image,
-  TouchableOpacity
+  Image
   // @ts-ignore
 } from 'react-native-alias'
-
 import { CustomButton } from '@/src/shared/ui/buttons'
 import { Colors } from '@/src/shared/ui/constants'
+import { useTheme } from '@emotion/react'
 
 const AccountTopNav: React.FC = () => {
   const router = useRouter()
+  const theme = useTheme()
 
   return (
     <Container>
@@ -43,7 +40,7 @@ const AccountTopNav: React.FC = () => {
         <CustomButtonWrapper id='sign-out'>
           <CustomButton
             textColor={Colors.white}
-            backgroundColor={Colors.brandPrimary}
+            backgroundColor={theme.colors.primary}
             hoverColor={Colors.brandSecondary}
             onPress={async () => {
               await signOut()
@@ -61,7 +58,7 @@ const AccountTopNav: React.FC = () => {
 const styled = createStyled(StyleSheet)
 
 const Container = styled(View)`
-  background-color: ${Colors.bodyPrimary};
+  background-color: ${(props) => props.theme.colors.backgroundPrimary};
   width: 100%;
   padding: 12px;
   flex-direction: row;

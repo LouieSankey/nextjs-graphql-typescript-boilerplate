@@ -12,6 +12,8 @@ describe('template spec', () => {
   //   cy.get('#signup-password').type(`${'Password11!'}{enter}`)
   // })
 
+  it('starts the oauth flow with google', () => {})
+
   it('returns invalid password if the password is badly formatted', () => {})
 
   it('signs in an existing user', () => {
