@@ -1,43 +1,32 @@
-import Link from 'next/link'
-import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/router'
-import { createStyled } from '@emotion/primitives-core'
-import {
-  StyleSheet,
-  View,
-  Image,
-  Switch
-  // @ts-ignore
-} from 'react-native-alias'
 import { CustomButton } from '@/src/shared/ui/buttons'
 import { Colors } from '@/src/shared/ui/constants'
-import { useTheme } from '@emotion/react'
-import { useContext, useState } from 'react'
-import AppContext from '@/src/shared/context/appContext'
+import { Box, Flex, HStack, Image } from 'native-base'
+import { signOut } from 'next-auth/react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const AccountTopNav: React.FC = () => {
   const router = useRouter()
-  const theme = useTheme()
-
-  const { toggleTheme } = useContext(AppContext)
-  const [isChecked, setIsChecked] = useState(false)
-
-  function handleChange(value) {
-    console.log(value)
-    setIsChecked(value)
-    toggleTheme()
-  }
 
   return (
-    <Container>
-      <LogoContainer>
+    <Flex
+      direction='row'
+      alignItems='center'
+      height={16}
+      backgroundColor='black'
+    >
+      <Box paddingLeft={4}>
         <Link href='/splash'>
-          <LogoImage source={'/images/logo.png'} alt='Logo' />
+          <Image
+            source={{ uri: '/images/logo.png' }}
+            alt='Logo'
+            w={140}
+            h={60}
+          />
         </Link>
-      </LogoContainer>
-      <RowContainer>
-        <Switch onValueChange={handleChange} value={isChecked} />
-        <CustomButtonWrapper>
+      </Box>
+      <Box flex={1} alignItems='flex-end'>
+        <HStack space={4} paddingRight={4}>
           <CustomButton
             textColor={Colors.white}
             backgroundColor={Colors.black}
@@ -49,11 +38,9 @@ const AccountTopNav: React.FC = () => {
           >
             Pricing
           </CustomButton>
-        </CustomButtonWrapper>
-        <CustomButtonWrapper>
           <CustomButton
             textColor={Colors.white}
-            backgroundColor={theme.colors.primary}
+            backgroundColor={Colors.brandPrimary}
             hoverColor={Colors.brandSecondary}
             onPress={async () => {
               await signOut()
@@ -62,37 +49,10 @@ const AccountTopNav: React.FC = () => {
           >
             Sign Out
           </CustomButton>
-        </CustomButtonWrapper>
-      </RowContainer>
-    </Container>
+        </HStack>
+      </Box>
+    </Flex>
   )
 }
-
-const styled = createStyled(StyleSheet)
-
-const Container = styled(View)`
-  background-color: ${(props) => props.theme.colors.backgroundPrimary};
-  width: 100%;
-  padding: 12px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const RowContainer = styled(View)`
-  flex-direction: row;
-  align-items: center;
-`
-
-const CustomButtonWrapper = styled(View)`
-  margin: 8px;
-`
-
-const LogoContainer = styled(View)``
-
-const LogoImage = styled(Image)`
-  width: 140px;
-  height: 60px;
-`
 
 export default AccountTopNav

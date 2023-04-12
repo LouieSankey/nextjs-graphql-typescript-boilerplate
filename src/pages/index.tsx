@@ -1,23 +1,14 @@
 import { NextPage, NextPageContext } from 'next'
-import { getSession, useSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
+import { getSession } from 'next-auth/react'
 import AccountTopNav from '../components/Nav/AccountTopNav'
 // import { Text, Button } from 'shared'
-import React from 'react'
-import Login from '../shared/screens/login'
 
+// Start editing here, save and see your changes.
 const Home: NextPage = () => {
-  //when we destructure we can include an alias of our choosing if we wish
-  const { data: session } = useSession()
-
-  // console.log('frontend session data', session)
-
   return (
-    <>
-      <div id='home-screen'>
-        <AccountTopNav></AccountTopNav>
-      </div>
-    </>
+    <div id='home-screen'>
+      <AccountTopNav></AccountTopNav>
+    </div>
   )
 }
 

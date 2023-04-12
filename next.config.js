@@ -1,25 +1,32 @@
+const { withNativebase } = require('@native-base/next-adapter')
 const path = require('path')
 
-//! Also add aliases to .bablerc
-//! then completely stop app and re-run npm run dev
-module.exports = {
-  reactStrictMode: true,
-
+module.exports = withNativebase({
+  dependencies: ['@native-base/icons', 'react-native-web-linear-gradient'],
   compiler: {
     // Enables the styled-components SWC transform
     styledComponents: true
   },
-
-  webpack: (config, { isServer }) => {
-    ;(config.resolve.alias = {
-      ...config.resolve.alias,
-      'react-native-alias': 'react-native-web',
-      'styled-components-alias': 'styled-components',
-      'use-session-alias': 'next-auth/react'
-    }),
-      (config.resolve.symlinks = false)
-    config.resolve.alias['shared'] = path.resolve(__dirname, 'shared')
-
-    return config
+  nextConfig: {
+    webpack: (config, options) => {
+      config.module.rules.push({
+        test: /\.ttf$/,
+        loader: 'url-loader', // or directly file-loader
+        include: path.resolve(__dirname, 'node_modules/@native-base/icons')
+      })
+      config.resolve.alias = {
+        ...(config.resolve.alias || {}),
+        'react-native$': 'react-native-web',
+        'react-native-linear-gradient': 'react-native-web-linear-gradient',
+        'use-session-alias': 'next-auth/react'
+      }
+      config.resolve.extensions = [
+        '.web.js',
+        '.web.ts',
+        '.web.tsx',
+        ...config.resolve.extensions
+      ]
+      return config
+    }
   }
-}
+})

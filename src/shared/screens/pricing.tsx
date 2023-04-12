@@ -2,7 +2,7 @@ import {
   StyleSheet,
   View
   // @ts-ignore
-} from 'react-native-alias'
+} from 'react-native'
 // @ts-ignore
 import { createStyled } from '@emotion/primitives-core'
 import PricingCard from '../components/pricing/pricingCard'

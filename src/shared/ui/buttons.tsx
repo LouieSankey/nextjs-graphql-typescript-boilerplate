@@ -6,7 +6,7 @@ import {
   View,
   TouchableOpacity
   // @ts-ignore
-} from 'react-native-alias'
+} from 'react-native'
 // @ts-ignore
 import { BorderRadii, Colors, FontSizes } from '../ui/constants'
 
@@ -49,18 +49,20 @@ export const CustomButton = ({
     }
   }, [color])
   return (
-    <BaseButton
-      ref={buttonRef}
-      backgroundColor={color}
-      borderColor={borderColor}
-      onPress={onPress}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <BaseButtonText textColor={textColor} fontSize={FontSizes.medium}>
-        {children}
-      </BaseButtonText>
-    </BaseButton>
+    <View>
+      <BaseButton
+        ref={buttonRef}
+        backgroundColor={color}
+        borderColor={borderColor}
+        onPress={onPress}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <BaseButtonText textColor={textColor} fontSize={FontSizes.xlarge}>
+          {children}
+        </BaseButtonText>
+      </BaseButton>
+    </View>
   )
 }
 

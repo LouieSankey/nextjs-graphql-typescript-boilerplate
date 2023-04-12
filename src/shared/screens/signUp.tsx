@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { Colors } from '../ui/constants'
+import { FormControl } from 'native-base'
+import { CustomButton } from '../ui/buttons'
+import { emailValidator, passwordValidator } from '../sharedUtils/validator'
 import {
-  Container,
-  Form,
+  AuthContainer,
   FormErrorMessage,
   GoogleButtonIcon,
   Header,
   HeaderText,
-  Input,
-  InputContainer,
+  CustomInput,
   InputHelperText,
   InputLabelText,
   OrDivider,
@@ -17,15 +18,11 @@ import {
   ShowPasswordButton,
   SignupContainer,
   SignupLink,
-  SignupText
-} from './styles'
-
-import {
-  StyleSheet
-  // @ts-ignore
-} from 'react-native-alias'
-import { CustomButton } from '../ui/buttons'
-import { emailValidator, passwordValidator } from '../sharedUtils/validator'
+  SignupText,
+  VerticalSpacer,
+  mobileAuthStyles,
+  webAuthStyles
+} from './auth-styles'
 
 const SignUp = ({
   imgSrc,
@@ -44,47 +41,36 @@ const SignUp = ({
   const isError = false // TODO: add error handling
 
   return (
-    <Container style={mobile ? mobileStyles.container : webStyles.container}>
+    <AuthContainer
+      style={mobile ? mobileAuthStyles.container : webAuthStyles.container}
+    >
       <Header>
         <HeaderText>Create your free account</HeaderText>
       </Header>
-
-      <Form>
+      <FormControl>
         <InputLabelText>Email</InputLabelText>
-        <InputContainer>
-          <Input
-            nativeID='signup-email'
-            value={email}
-            onChangeText={(text: React.SetStateAction<string>) =>
-              setEmail(text)
-            }
-            onBlur={(e: any) => setEmailError(emailValidator(email) || '')}
-          />
-        </InputContainer>
+        <CustomInput
+          nativeID='signup-email'
+          value={email}
+          onChangeText={(text: React.SetStateAction<string>) => setEmail(text)}
+          onBlur={(e: any) => setEmailError(emailValidator(email) || '')}
+        />
         {emailError !== '' && <FormErrorMessage>{emailError}</FormErrorMessage>}
         <InputLabelText>Password</InputLabelText>
-        <InputContainer>
-          <Input
-            nativeID='signup-password'
-            secureTextEntry={!showPassword}
-            value={password}
-            onChangeText={(text: React.SetStateAction<string>) =>
-              setPassword(text)
-            }
-            onBlur={(e: any) =>
-              setPasswordError(passwordValidator(password) || '')
-            }
-          />
-          <ShowPasswordButton onPress={() => setShowPassword(!showPassword)}>
-            {/* <ShowPasswordIcon
-              source={
-                showPassword
-                  ? require('../images/eye-open.svg')
-                  : require('../images/eye-close.svg')
-              }
-            /> */}
-          </ShowPasswordButton>
-        </InputContainer>
+        <CustomInput
+          nativeID='signup-password'
+          secureTextEntry={!showPassword}
+          value={password}
+          onChangeText={(text: React.SetStateAction<string>) =>
+            setPassword(text)
+          }
+          onBlur={(e: any) =>
+            setPasswordError(passwordValidator(password) || '')
+          }
+        />
+        <ShowPasswordButton
+          onPress={() => setShowPassword(!showPassword)}
+        ></ShowPasswordButton>
         {authError !== '' && <FormErrorMessage>{authError}</FormErrorMessage>}
         {passwordError !== '' && (
           <FormErrorMessage>{passwordError}</FormErrorMessage>
@@ -104,31 +90,31 @@ const SignUp = ({
         >
           Sign up
         </CustomButton>
-      </Form>
-      <OrDividerContainer>
-        <OrDivider />
-        <OrDividerText>OR</OrDividerText>
-        <OrDivider />
-      </OrDividerContainer>
-      <CustomButton
-        textColor={Colors.black}
-        backgroundColor={Colors.white}
-        hoverColor={Colors.lightGrey}
-        borderColor={Colors.mediumGrey}
-        onPress={
-          mobile
-            ? async () => {
-                await signUpGoogle({ useProxy: true, showInRecents: true })
-              }
-            : async () => {
-                await signUpGoogle('google')
-              }
-        }
-      >
-        <GoogleButtonIcon source={mobile ? imgSrc : '/images/google.png'} />
-        Continue with Google
-      </CustomButton>
-
+        <VerticalSpacer />
+        <OrDividerContainer>
+          <OrDivider />
+          <OrDividerText>OR</OrDividerText>
+          <OrDivider />
+        </OrDividerContainer>
+        <CustomButton
+          textColor={Colors.black}
+          backgroundColor={Colors.white}
+          hoverColor={Colors.lightGrey}
+          borderColor={Colors.mediumGrey}
+          onPress={
+            mobile
+              ? async () => {
+                  await signUpGoogle({ useProxy: true, showInRecents: true })
+                }
+              : async () => {
+                  await signUpGoogle('google')
+                }
+          }
+        >
+          <GoogleButtonIcon source={mobile ? imgSrc : '/images/google.png'} />
+          Continue with Google
+        </CustomButton>
+      </FormControl>
       <SignupContainer>
         <SignupText>Already have an account?</SignupText>
         <SignupLink
@@ -143,23 +129,8 @@ const SignUp = ({
           LOGIN
         </SignupLink>
       </SignupContainer>
-    </Container>
+    </AuthContainer>
   )
 }
-
-const mobileStyles = StyleSheet.create({
-  container: {
-    width: '100%'
-  }
-})
-
-const webStyles = StyleSheet.create({
-  container: {
-    width: '300pt',
-
-    paddingTop: 20,
-    paddingBottom: 20
-  }
-})
 
 export default SignUp

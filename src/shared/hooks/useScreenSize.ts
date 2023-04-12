@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 // @ts-ignore
-import { useWindowDimensions } from 'react-native-alias'
+import { useWindowDimensions } from 'react-native'
 
 export const useScreenSize = () => {
   const [screenSize, setScreenSize] = useState('mobile')

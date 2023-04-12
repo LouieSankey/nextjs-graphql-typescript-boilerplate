@@ -1,21 +1,26 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image
-  // @ts-ignore
-} from 'react-native-alias'
-// @ts-ignore
-import { BorderRadii, Colors, FontSizes } from '../ui/constants'
-// @ts-ignore
 import { createStyled } from '@emotion/primitives-core'
+import { Box, Input, Text } from 'native-base'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { BorderRadii, Colors, FontSizes } from '../ui/constants'
 import { withTouchableText } from '../ui/styled-component-wrappers'
+
+export const mobileAuthStyles = StyleSheet.create({
+  container: {
+    width: '100%'
+  }
+})
+
+export const webAuthStyles = StyleSheet.create({
+  container: {
+    width: '400px',
+    paddingTop: 20,
+    paddingBottom: 20
+  }
+})
 
 const styled = createStyled(StyleSheet)
 
-export const Container = styled(View)`
+export const AuthContainer = styled(Box)`
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -23,7 +28,7 @@ export const Container = styled(View)`
   background-color: ${Colors.white};
 `
 
-export const Header = styled(View)`
+export const Header = styled(Box)`
   align-items: center;
   margin-bottom: 20px;
 `
@@ -33,18 +38,13 @@ export const HeaderText = styled(Text)`
   font-weight: bold;
 `
 
-export const Form = styled(View)`
-  width: 100%;
-  margin-bottom: 20px;
-`
-
 export const FormErrorMessage = styled(Text)`
   margin-top: -6px;
   margin-bottom: 10px;
   color: ${Colors.red};
 `
 
-export const InputContainer = styled(View)`
+export const InputContainer = styled(Box)`
   flex-direction: row;
   align-items: center;
   border-width: 1px;
@@ -62,13 +62,12 @@ export const InputHelperText = styled(Text)`
 
 export const InputLabelText = styled(Text)`
   padding-bottom: 5px;
-  margin-bottom: 10px;
+  margin-top: 10px;
 `
 
-export const Input = styled(TextInput)`
+export const CustomInput = styled(Input)`
   flex: 1;
-  padding: 10px;
-  color: black;
+  font-size: ${FontSizes.medium};
 `
 
 export const ShowPasswordButton = styled(TouchableOpacity)`
@@ -81,14 +80,14 @@ export const ShowPasswordIcon = styled(Image)`
 `
 
 export const GoogleButtonIcon = styled(Image)`
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   margin-right: 6px;
   margin-left: -6px;
   margin-bottom: -4px;
 `
 
-export const ForgotPasswordContainer = styled(View)`
+export const ForgotPasswordContainer = styled(Box)`
   align-items: flex-end;
 `
 
@@ -113,10 +112,10 @@ export const OrDivider = styled(View)`
 export const OrDividerText = styled(Text)`
   padding-horizontal: 10px;
   font-size: ${FontSizes.medium};
-  color: ${Colors.mediumGrey};
+  color: ${Colors.darkGrey};
 `
 
-export const SignupContainer = styled(View)`
+export const SignupContainer = styled(Box)`
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
@@ -130,4 +129,8 @@ export const SignupText = styled(Text)`
 export const SignupLink = styled(withTouchableText)`
   color: #007aff;
   font-size: 16px;
+`
+
+export const VerticalSpacer = styled(Box)`
+  height: 20px;
 `

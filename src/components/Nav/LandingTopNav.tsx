@@ -1,19 +1,7 @@
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-// @ts-ignore
-import { createStyled } from '@emotion/primitives-core'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity
-  // @ts-ignore
-} from 'react-native-alias'
-
+import { Box, Flex, HStack, Image } from 'native-base'
 import { CustomButton } from '@/src/shared/ui/buttons'
 import { Colors } from '@/src/shared/ui/constants'
-
 import { useRouter } from 'next/router'
 
 interface Props {
@@ -24,14 +12,24 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
   const router = useRouter()
 
   return (
-    <Container>
-      <LogoContainer>
+    <Flex
+      direction='row'
+      alignItems='center'
+      height={16}
+      backgroundColor='black'
+    >
+      <Box paddingLeft={4}>
         <Link href='/splash'>
-          <LogoImage source={'/images/logo.png'} alt='Logo' />
+          <Image
+            source={{ uri: '/images/logo.png' }}
+            alt='Logo'
+            w={140}
+            h={60}
+          />
         </Link>
-      </LogoContainer>
-      <RowContainer>
-        <CustomButtonWrapper>
+      </Box>
+      <Box flex={1} alignItems='flex-end'>
+        <HStack space={4} paddingRight={4}>
           <CustomButton
             textColor={Colors.white}
             backgroundColor={Colors.black}
@@ -43,10 +41,8 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
           >
             Pricing
           </CustomButton>
-        </CustomButtonWrapper>
 
-        {isLoggedIn ? (
-          <CustomButtonWrapper>
+          {isLoggedIn ? (
             <CustomButton
               textColor={Colors.white}
               backgroundColor={Colors.brandPrimary}
@@ -57,10 +53,8 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
             >
               Go to App
             </CustomButton>
-          </CustomButtonWrapper>
-        ) : (
-          <>
-            <CustomButtonWrapper>
+          ) : (
+            <>
               <CustomButton
                 textColor={Colors.white}
                 backgroundColor={Colors.black}
@@ -72,8 +66,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
               >
                 Log in
               </CustomButton>
-            </CustomButtonWrapper>
-            <CustomButtonWrapper>
+
               <CustomButton
                 textColor={Colors.white}
                 backgroundColor={Colors.brandPrimary}
@@ -84,39 +77,12 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
               >
                 Get Started Free!
               </CustomButton>
-            </CustomButtonWrapper>
-          </>
-        )}
-      </RowContainer>
-    </Container>
+            </>
+          )}
+        </HStack>
+      </Box>
+    </Flex>
   )
 }
-
-const styled = createStyled(StyleSheet)
-
-const Container = styled(View)`
-  background-color: ${Colors.bodyPrimary};
-  width: 100%;
-  padding: 12px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const RowContainer = styled(View)`
-  flex-direction: row;
-  align-items: center;
-`
-
-const CustomButtonWrapper = styled(View)`
-  margin: 8px;
-`
-
-const LogoContainer = styled(View)``
-
-const LogoImage = styled(Image)`
-  width: 140px;
-  height: 60px;
-`
 
 export default LandingTopNav

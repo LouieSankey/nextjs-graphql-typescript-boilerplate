@@ -6,7 +6,7 @@
       "module-resolver",
       {
         "alias": {
-          "react-native-alias": "react-native-web",
+          "react-native": "react-native-web",
           "styled-components-alias": "styled-components",
           "use-session-alias": "next-auth/react"
         }

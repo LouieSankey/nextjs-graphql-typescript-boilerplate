@@ -1,11 +1,5 @@
-// @ts-ignore
 import { createStyled } from '@emotion/primitives-core'
-import {
-  StyleSheet,
-  Text,
-  View
-  // @ts-ignore
-} from 'react-native-alias'
+import { StyleSheet, Text, View } from 'react-native'
 import { StripeProduct } from '../../sharedUtils/types'
 import { Colors } from '../../ui/constants'
 import { CustomButton } from '../../ui/buttons'

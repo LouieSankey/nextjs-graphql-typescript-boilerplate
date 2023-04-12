@@ -6,7 +6,7 @@ import {
   Text
 
   // @ts-ignore
-} from 'react-native-alias'
+} from 'react-native'
 
 const withTouchable = <P extends TouchableOpacityProps>(
   WrappedComponent: React.ComponentType<P>

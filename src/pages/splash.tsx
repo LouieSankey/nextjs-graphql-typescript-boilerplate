@@ -1,4 +1,3 @@
-import { Box, Button, Flex, Image } from '@chakra-ui/react'
 import { GetServerSidePropsContext } from 'next'
 import { getSession } from 'next-auth/react'
 import LandingTopNav from '../components/Nav/LandingTopNav'
@@ -11,7 +10,6 @@ const Splash: React.FC<Props> = ({ isLoggedIn }) => {
   return (
     <>
       <LandingTopNav isLoggedIn={isLoggedIn} />
-      <Box>Splash Page</Box>
     </>
   )
 }
