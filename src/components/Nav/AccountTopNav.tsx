@@ -1,19 +1,19 @@
+import ColorModeSwitch from '@/src/shared/components/colorModeSwitch'
 import { CustomButton } from '@/src/shared/ui/buttons'
 import { Colors } from '@/src/shared/ui/constants'
-import { Box, Flex, HStack, Image } from 'native-base'
+import { Box, Flex, HStack, Image, useColorMode } from 'native-base'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { NavBar } from './nav-styles'
 
 const AccountTopNav: React.FC = () => {
   const router = useRouter()
+  const { colorMode } = useColorMode()
 
   return (
-    <Flex
-      direction='row'
-      alignItems='center'
-      height={16}
-      backgroundColor='black'
+    <NavBar
+      bg={colorMode === 'dark' ? 'darkNavBackground' : 'lightNavBackground'}
     >
       <Box paddingLeft={4}>
         <Link href='/splash'>
@@ -38,6 +38,7 @@ const AccountTopNav: React.FC = () => {
           >
             Pricing
           </CustomButton>
+          <ColorModeSwitch />
           <CustomButton
             textColor={Colors.white}
             backgroundColor={Colors.brandPrimary}
@@ -51,7 +52,7 @@ const AccountTopNav: React.FC = () => {
           </CustomButton>
         </HStack>
       </Box>
-    </Flex>
+    </NavBar>
   )
 }
 

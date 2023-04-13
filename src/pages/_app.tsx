@@ -3,7 +3,8 @@ import { NativeBaseProvider } from 'native-base'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import AppContext from '../shared/context/appContext'
-import { client } from '../shared/graphql/apollo-client'
+import { client } from '../../apollo-client'
+import { theme } from '../shared/theme/customTheme'
 
 export default function App({
   Component,
@@ -16,7 +17,7 @@ export default function App({
     <AppContext.Provider value={{ someFunction }}>
       <SessionProvider session={session}>
         <ApolloProvider client={client}>
-          <NativeBaseProvider isSSR>
+          <NativeBaseProvider theme={theme} isSSR>
             <Component {...pageProps} />
           </NativeBaseProvider>
         </ApolloProvider>

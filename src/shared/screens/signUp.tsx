@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Colors } from '../ui/constants'
-import { FormControl } from 'native-base'
+import { FormControl, Text } from 'native-base'
 import { CustomButton } from '../ui/buttons'
 import { emailValidator, passwordValidator } from '../sharedUtils/validator'
 import {
@@ -112,7 +112,7 @@ const SignUp = ({
           }
         >
           <GoogleButtonIcon source={mobile ? imgSrc : '/images/google.png'} />
-          Continue with Google
+          <Text fontSize='lg'> Continue with Google </Text>
         </CustomButton>
       </FormControl>
       <SignupContainer>

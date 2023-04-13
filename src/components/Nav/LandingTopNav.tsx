@@ -1,8 +1,10 @@
 import Link from 'next/link'
-import { Box, Flex, HStack, Image } from 'native-base'
+import { Box, Flex, HStack, Image, useColorMode, Button } from 'native-base'
 import { CustomButton } from '@/src/shared/ui/buttons'
 import { Colors } from '@/src/shared/ui/constants'
 import { useRouter } from 'next/router'
+import ColorModeSwitch from '@/src/shared/components/colorModeSwitch'
+import { NavBar } from './nav-styles'
 
 interface Props {
   isLoggedIn: boolean
@@ -10,14 +12,10 @@ interface Props {
 
 const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
   const router = useRouter()
+  const { colorMode } = useColorMode()
 
   return (
-    <Flex
-      direction='row'
-      alignItems='center'
-      height={16}
-      backgroundColor='black'
-    >
+    <NavBar bg={colorMode === 'dark' ? 'darkBackground' : 'lightBackground'}>
       <Box paddingLeft={4}>
         <Link href='/splash'>
           <Image
@@ -28,8 +26,12 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
           />
         </Link>
       </Box>
+
       <Box flex={1} alignItems='flex-end'>
         <HStack space={4} paddingRight={4}>
+          <Box>
+            <ColorModeSwitch />
+          </Box>
           <CustomButton
             textColor={Colors.white}
             backgroundColor={Colors.black}
@@ -81,7 +83,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
           )}
         </HStack>
       </Box>
-    </Flex>
+    </NavBar>
   )
 }
 

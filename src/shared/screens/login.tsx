@@ -1,6 +1,5 @@
-import { FormControl, Text, Spacer } from 'native-base'
+import { FormControl, Text } from 'native-base'
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
 import { CustomButton } from '../ui/buttons'
 import { Colors } from '../ui/constants'
 import {

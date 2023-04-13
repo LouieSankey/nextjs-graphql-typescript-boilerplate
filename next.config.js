@@ -7,6 +7,9 @@ module.exports = withNativebase({
     // Enables the styled-components SWC transform
     styledComponents: true
   },
+  externals: {
+    'expo-constants$': '_'
+  },
   nextConfig: {
     webpack: (config, options) => {
       config.module.rules.push({
@@ -26,6 +29,7 @@ module.exports = withNativebase({
         '.web.tsx',
         ...config.resolve.extensions
       ]
+
       return config
     }
   }

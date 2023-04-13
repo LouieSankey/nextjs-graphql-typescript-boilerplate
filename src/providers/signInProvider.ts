@@ -1,4 +1,4 @@
-import { client } from '@/src/shared/graphql/apollo-client'
+import { client } from '@/apollo-client'
 import Operations from '@/src/shared/graphql/operations/index'
 import { SignInResponse, SignInInput } from '@/src/shared/sharedUtils/types'
 import CredentialsProvider from 'next-auth/providers/credentials'
