@@ -8,37 +8,43 @@ import {
   // @ts-ignore
 } from 'react-native'
 // @ts-ignore
-import { BorderRadii, Colors, FontSizes } from '../ui/constants'
+import { Box, useColorMode, useTheme } from 'native-base'
 
 interface ButtonProps {
-  textColor: string
-  backgroundColor: string
-  hoverColor?: string
-  borderColor?: string
+  buttonStyle: ButtonStyle
   disabled?: boolean
   onPress?: (event: React.MouseEvent<HTMLButtonElement>) => Promise<void>
   children: React.ReactNode
 }
 
+interface ButtonStyle {
+  background: string
+  hover: string
+  border: string
+  text: string
+}
+
 //! to position the CustomButton you should use a wrapper element
 export const CustomButton = ({
-  textColor = Colors.white,
-  backgroundColor = Colors.brandPrimary,
-  hoverColor = Colors.brandSecondary,
-  borderColor,
+  buttonStyle,
   disabled,
   onPress,
   children
 }: ButtonProps) => {
+  const { colors } = useTheme()
+
+  console.log('styles ', buttonStyle)
+
   //the component code here is what adds the hover effect to the button
-  const [color, setColor] = useState(backgroundColor)
+  const [color, setColor] = useState(buttonStyle.background)
   const buttonRef = useRef(null)
   const handleMouseEnter = () => {
-    setColor(hoverColor)
+    setColor(buttonStyle.hover)
   }
   const handleMouseLeave = () => {
-    setColor(backgroundColor)
+    setColor(buttonStyle.background)
   }
+
   //on web to make it so that the background color can change on hover
   useEffect(() => {
     if (buttonRef.current) {
@@ -49,20 +55,20 @@ export const CustomButton = ({
     }
   }, [color])
   return (
-    <View>
+    <Box>
       <BaseButton
         ref={buttonRef}
         backgroundColor={color}
-        borderColor={borderColor}
+        borderColor={buttonStyle.border}
         onPress={onPress}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <BaseButtonText textColor={textColor} fontSize={FontSizes.xlarge}>
+        <BaseButtonText textColor={buttonStyle.text} fontSize={'20px'}>
           {children}
         </BaseButtonText>
       </BaseButton>
-    </View>
+    </Box>
   )
 }
 
@@ -71,7 +77,7 @@ const styled = createStyled(StyleSheet)
 const BaseButton = styled(TouchableOpacity)`
   width: 100%;
   align-items: center;
-  border-radius: ${BorderRadii.small};
+  border-radius: 5px;
   opacity: 0.9;
   background-color: ${(props: { backgroundColor: string }) =>
     props.backgroundColor || 'transparent'};

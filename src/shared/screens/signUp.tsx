@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Colors } from '../ui/constants'
-import { FormControl, Text } from 'native-base'
+import { FormControl, Text, useColorMode, useTheme } from 'native-base'
 import { CustomButton } from '../ui/buttons'
 import { emailValidator, passwordValidator } from '../sharedUtils/validator'
 import {
@@ -39,6 +38,8 @@ const SignUp = ({
   const [passwordError, setPasswordError] = useState('')
 
   const isError = false // TODO: add error handling
+  const { colors } = useTheme()
+  console.log('theme obj', colors)
 
   return (
     <AuthContainer
@@ -80,10 +81,8 @@ const SignUp = ({
           and 1 special character (@$!%*?&).
         </InputHelperText>
         <CustomButton
+          buttonStyle={colors.buttonPrimary}
           disabled={false}
-          hoverColor={Colors.brandSecondary}
-          backgroundColor={Colors.brandPrimary}
-          textColor={Colors.white}
           onPress={(e) => {
             return onSubmit(e, email, password)
           }}
@@ -97,10 +96,7 @@ const SignUp = ({
           <OrDivider />
         </OrDividerContainer>
         <CustomButton
-          textColor={Colors.black}
-          backgroundColor={Colors.white}
-          hoverColor={Colors.lightGrey}
-          borderColor={Colors.mediumGrey}
+          buttonStyle={colors.buttonGoogle}
           onPress={
             mobile
               ? async () => {

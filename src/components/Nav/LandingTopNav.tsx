@@ -1,7 +1,14 @@
 import Link from 'next/link'
-import { Box, Flex, HStack, Image, useColorMode, Button } from 'native-base'
+import {
+  Box,
+  Flex,
+  HStack,
+  Image,
+  useColorMode,
+  Button,
+  useTheme
+} from 'native-base'
 import { CustomButton } from '@/src/shared/ui/buttons'
-import { Colors } from '@/src/shared/ui/constants'
 import { useRouter } from 'next/router'
 import ColorModeSwitch from '@/src/shared/components/colorModeSwitch'
 import { NavBar } from './nav-styles'
@@ -13,6 +20,7 @@ interface Props {
 const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
   const router = useRouter()
   const { colorMode } = useColorMode()
+  const { colors } = useTheme()
 
   return (
     <NavBar bg={colorMode === 'dark' ? 'darkBackground' : 'lightBackground'}>
@@ -33,10 +41,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
             <ColorModeSwitch />
           </Box>
           <CustomButton
-            textColor={Colors.white}
-            backgroundColor={Colors.black}
-            borderColor={Colors.mediumGrey}
-            hoverColor={Colors.darkGrey}
+            buttonStyle={colors['buttonSecondary']}
             onPress={async () => {
               await router.push('/pricing')
             }}
@@ -46,9 +51,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
 
           {isLoggedIn ? (
             <CustomButton
-              textColor={Colors.white}
-              backgroundColor={Colors.brandPrimary}
-              hoverColor={Colors.brandSecondary}
+              buttonStyle={colors['buttonPrimary']}
               onPress={async () => {
                 await router.push('/')
               }}
@@ -58,10 +61,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
           ) : (
             <>
               <CustomButton
-                textColor={Colors.white}
-                backgroundColor={Colors.black}
-                borderColor={Colors.white}
-                hoverColor={Colors.darkGrey}
+                buttonStyle={colors['buttonSecondary']}
                 onPress={async () => {
                   await router.push('/auth/login')
                 }}
@@ -70,9 +70,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
               </CustomButton>
 
               <CustomButton
-                textColor={Colors.white}
-                backgroundColor={Colors.brandPrimary}
-                hoverColor={Colors.brandSecondary}
+                buttonStyle={colors['buttonPrimary']}
                 onPress={async () => {
                   await router.push('/auth/signup')
                 }}

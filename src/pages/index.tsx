@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next'
-import { getSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 import AccountTopNav from '../components/Nav/AccountTopNav'
 // import { Text, Button } from 'shared'
 

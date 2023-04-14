@@ -1,7 +1,6 @@
-import { FormControl, Text } from 'native-base'
+import { FormControl, Text, useTheme } from 'native-base'
 import React, { useState } from 'react'
 import { CustomButton } from '../ui/buttons'
-import { Colors } from '../ui/constants'
 import {
   AuthContainer,
   CustomInput,
@@ -32,6 +31,7 @@ const Login = ({
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { colors } = useTheme()
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.key === 'Enter') {
@@ -69,9 +69,7 @@ const Login = ({
         {authError !== '' && <FormErrorMessage>{authError}</FormErrorMessage>}
         <VerticalSpacer />
         <CustomButton
-          backgroundColor={Colors.brandPrimary}
-          textColor={Colors.white}
-          hoverColor={Colors.brandSecondary}
+          buttonStyle={colors.buttonPrimary}
           disabled={false}
           onPress={(e) => {
             return onSubmit(e, email, password)
@@ -86,10 +84,7 @@ const Login = ({
           <OrDivider />
         </OrDividerContainer>
         <CustomButton
-          textColor={Colors.black}
-          backgroundColor={Colors.white}
-          borderColor={Colors.mediumGrey}
-          hoverColor={Colors.lightGrey}
+          buttonStyle={colors.buttonGoogle}
           onPress={
             mobile
               ? async () => {
@@ -117,7 +112,7 @@ const Login = ({
                 }
           }
         >
-          LOGIN
+          SIGN UP
         </SignupLink>
       </SignupContainer>
     </AuthContainer>

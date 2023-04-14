@@ -1,7 +1,6 @@
 import ColorModeSwitch from '@/src/shared/components/colorModeSwitch'
 import { CustomButton } from '@/src/shared/ui/buttons'
-import { Colors } from '@/src/shared/ui/constants'
-import { Box, Flex, HStack, Image, useColorMode } from 'native-base'
+import { Box, Flex, HStack, Image, useColorMode, useTheme } from 'native-base'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,6 +9,7 @@ import { NavBar } from './nav-styles'
 const AccountTopNav: React.FC = () => {
   const router = useRouter()
   const { colorMode } = useColorMode()
+  const { colors } = useTheme()
 
   return (
     <NavBar
@@ -28,10 +28,7 @@ const AccountTopNav: React.FC = () => {
       <Box flex={1} alignItems='flex-end'>
         <HStack space={4} paddingRight={4}>
           <CustomButton
-            textColor={Colors.white}
-            backgroundColor={Colors.black}
-            borderColor={Colors.mediumGrey}
-            hoverColor={Colors.darkGrey}
+            buttonStyle={colors.buttonSecondary}
             onPress={async () => {
               await router.push('/pricing')
             }}
@@ -40,9 +37,7 @@ const AccountTopNav: React.FC = () => {
           </CustomButton>
           <ColorModeSwitch />
           <CustomButton
-            textColor={Colors.white}
-            backgroundColor={Colors.brandPrimary}
-            hoverColor={Colors.brandSecondary}
+            buttonStyle={colors.buttonPrimary}
             onPress={async () => {
               await signOut()
               router.replace('splash')

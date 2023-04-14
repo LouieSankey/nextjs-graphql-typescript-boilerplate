@@ -1,10 +1,10 @@
 import { createStyled } from '@emotion/primitives-core'
 import { StyleSheet, Text, View } from 'react-native'
 import { StripeProduct } from '../../sharedUtils/types'
-import { Colors } from '../../ui/constants'
 import { CustomButton } from '../../ui/buttons'
 // @ts-ignore
 import { useSession } from 'use-session-alias'
+import { useTheme } from 'native-base'
 
 interface PricingCardProps {
   screenSize: string
@@ -19,6 +19,8 @@ const PricingCard = ({ product, purchaseProduct }: PricingCardProps) => {
   } catch (error) {
     console.log('session error ', error)
   }
+
+  const { colors } = useTheme()
 
   console.log(JSON.stringify(session, null, 2))
   const isSubscribed = product.name === session?.data?.user?.tier
@@ -36,9 +38,9 @@ const PricingCard = ({ product, purchaseProduct }: PricingCardProps) => {
 
       <SelectButtonWrapper>
         <CustomButton
-          textColor={Colors.white}
-          backgroundColor={isSubscribed ? Colors.brandPrimary : Colors.black}
-          hoverColor={isSubscribed ? Colors.brandSecondary : Colors.darkGrey}
+          buttonStyle={
+            isSubscribed ? colors.buttonPrimary : colors.buttonSecondary
+          }
           onPress={() => purchaseProduct(product.default_price)}
           disabled={isSubscribed} // disable the button if subscribed
         >
@@ -60,7 +62,6 @@ const Card = styled(View)`
   padding: 16px;
   max-width: 100%;
   border-width: 2px;
-  border-color: ${Colors.brandPrimary};
 `
 
 const Title = styled(Text)`
