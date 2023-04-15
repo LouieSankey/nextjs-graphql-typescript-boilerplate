@@ -34,7 +34,10 @@ function AppWrapper({ Component, pageProps }: any) {
     console.log(colorMode)
   }, [colorMode])
   return (
-    <Box h='100%' bg={colorMode === 'dark' ? 'darkPrimary' : 'lightPrimary'}>
+    <Box
+      h='100%'
+      bg={colorMode === 'dark' ? 'darkBackground' : 'lightBackground'}
+    >
       <Component {...pageProps} />
     </Box>
   )

@@ -11,7 +11,7 @@ import {
 import { CustomButton } from '@/src/shared/ui/buttons'
 import { useRouter } from 'next/router'
 import ColorModeSwitch from '@/src/shared/components/colorModeSwitch'
-import { NavBar } from './nav-styles'
+import { NavBar } from './NavBar'
 
 interface Props {
   isLoggedIn: boolean
@@ -23,7 +23,11 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
   const { colors } = useTheme()
 
   return (
-    <NavBar bg={colorMode === 'dark' ? 'darkBackground' : 'lightBackground'}>
+    <NavBar
+      bg={
+        colorMode === 'dark' ? 'darkBackgroundAccent' : 'lightBackgroundAccent'
+      }
+    >
       <Box paddingLeft={4}>
         <Link href='/splash'>
           <Image
@@ -41,7 +45,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
             <ColorModeSwitch />
           </Box>
           <CustomButton
-            buttonStyle={colors['buttonSecondary']}
+            buttonStyle={colors.brandSecondary}
             onPress={async () => {
               await router.push('/pricing')
             }}
@@ -51,7 +55,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
 
           {isLoggedIn ? (
             <CustomButton
-              buttonStyle={colors['buttonPrimary']}
+              buttonStyle={colors.brandPrimary}
               onPress={async () => {
                 await router.push('/')
               }}
@@ -61,7 +65,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
           ) : (
             <>
               <CustomButton
-                buttonStyle={colors['buttonSecondary']}
+                buttonStyle={colors.brandSecondary}
                 onPress={async () => {
                   await router.push('/auth/login')
                 }}
@@ -70,7 +74,7 @@ const LandingTopNav: React.FC<Props> = ({ isLoggedIn }) => {
               </CustomButton>
 
               <CustomButton
-                buttonStyle={colors['buttonPrimary']}
+                buttonStyle={colors.brandPrimary}
                 onPress={async () => {
                   await router.push('/auth/signup')
                 }}

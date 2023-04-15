@@ -39,7 +39,6 @@ const SignUp = ({
 
   const isError = false // TODO: add error handling
   const { colors } = useTheme()
-  console.log('theme obj', colors)
 
   return (
     <AuthContainer
@@ -81,7 +80,7 @@ const SignUp = ({
           and 1 special character (@$!%*?&).
         </InputHelperText>
         <CustomButton
-          buttonStyle={colors.buttonPrimary}
+          buttonStyle={colors.brandPrimary}
           disabled={false}
           onPress={(e) => {
             return onSubmit(e, email, password)

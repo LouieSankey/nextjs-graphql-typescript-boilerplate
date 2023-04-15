@@ -33,8 +33,6 @@ export const CustomButton = ({
 }: ButtonProps) => {
   const { colors } = useTheme()
 
-  console.log('styles ', buttonStyle)
-
   //the component code here is what adds the hover effect to the button
   const [color, setColor] = useState(buttonStyle.background)
   const buttonRef = useRef(null)

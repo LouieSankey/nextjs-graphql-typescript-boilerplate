@@ -1,12 +1,6 @@
+import { Text } from 'native-base'
 import React, { useState } from 'react'
-
-import {
-  TouchableOpacity,
-  TouchableOpacityProps,
-  Text
-
-  // @ts-ignore
-} from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
 const withTouchable = <P extends TouchableOpacityProps>(
   WrappedComponent: React.ComponentType<P>

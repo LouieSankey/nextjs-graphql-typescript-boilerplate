@@ -69,7 +69,7 @@ const Login = ({
         {authError !== '' && <FormErrorMessage>{authError}</FormErrorMessage>}
         <VerticalSpacer />
         <CustomButton
-          buttonStyle={colors.buttonPrimary}
+          buttonStyle={colors.brandPrimary}
           disabled={false}
           onPress={(e) => {
             return onSubmit(e, email, password)
@@ -112,7 +112,7 @@ const Login = ({
                 }
           }
         >
-          SIGN UP
+          <Text> SIGN UP</Text>
         </SignupLink>
       </SignupContainer>
     </AuthContainer>

@@ -1,10 +1,10 @@
 import { createStyled } from '@emotion/primitives-core'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { StripeProduct } from '../../sharedUtils/types'
 import { CustomButton } from '../../ui/buttons'
 // @ts-ignore
 import { useSession } from 'use-session-alias'
-import { useTheme } from 'native-base'
+import { Box, Text, useTheme } from 'native-base'
 
 interface PricingCardProps {
   screenSize: string
@@ -22,7 +22,6 @@ const PricingCard = ({ product, purchaseProduct }: PricingCardProps) => {
 
   const { colors } = useTheme()
 
-  console.log(JSON.stringify(session, null, 2))
   const isSubscribed = product.name === session?.data?.user?.tier
 
   return (
@@ -39,7 +38,7 @@ const PricingCard = ({ product, purchaseProduct }: PricingCardProps) => {
       <SelectButtonWrapper>
         <CustomButton
           buttonStyle={
-            isSubscribed ? colors.buttonPrimary : colors.buttonSecondary
+            isSubscribed ? colors.brandPrimary : colors.brandSecondary
           }
           onPress={() => purchaseProduct(product.default_price)}
           disabled={isSubscribed} // disable the button if subscribed
@@ -53,8 +52,7 @@ const PricingCard = ({ product, purchaseProduct }: PricingCardProps) => {
 
 const styled = createStyled(StyleSheet)
 
-const Card = styled(View)`
-  background-color: #fff;
+const Card = styled(Box)`
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   flex: 1;
@@ -65,21 +63,18 @@ const Card = styled(View)`
 `
 
 const Title = styled(Text)`
-  color: black;
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 16px;
 `
 
 const Price = styled(Text)`
-  color: black;
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 16px;
 `
 
 const Feature = styled(Text)`
-  color: black;
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 10px;

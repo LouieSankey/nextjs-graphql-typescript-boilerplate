@@ -4,7 +4,7 @@ import { Box, Flex, HStack, Image, useColorMode, useTheme } from 'native-base'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { NavBar } from './nav-styles'
+import { NavBar } from './NavBar'
 
 const AccountTopNav: React.FC = () => {
   const router = useRouter()
@@ -13,7 +13,9 @@ const AccountTopNav: React.FC = () => {
 
   return (
     <NavBar
-      bg={colorMode === 'dark' ? 'darkNavBackground' : 'lightNavBackground'}
+      bg={
+        colorMode === 'dark' ? 'darkBackgroundAccent' : 'lightBackgroundAccent'
+      }
     >
       <Box paddingLeft={4}>
         <Link href='/splash'>
@@ -28,7 +30,7 @@ const AccountTopNav: React.FC = () => {
       <Box flex={1} alignItems='flex-end'>
         <HStack space={4} paddingRight={4}>
           <CustomButton
-            buttonStyle={colors.buttonSecondary}
+            buttonStyle={colors.brandSecondary}
             onPress={async () => {
               await router.push('/pricing')
             }}
@@ -37,7 +39,7 @@ const AccountTopNav: React.FC = () => {
           </CustomButton>
           <ColorModeSwitch />
           <CustomButton
-            buttonStyle={colors.buttonPrimary}
+            buttonStyle={colors.brandPrimary}
             onPress={async () => {
               await signOut()
               router.replace('splash')

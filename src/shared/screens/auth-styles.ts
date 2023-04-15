@@ -1,7 +1,11 @@
 import { createStyled } from '@emotion/primitives-core'
 import { Box, Input, Text } from 'native-base'
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { withTouchableText } from '../ui/styled-component-wrappers'
+import {
+  withHoverOpacity,
+  withTouchableText
+} from '../ui/styled-component-wrappers'
+import { Constants } from '../theme/customTheme'
 
 export const mobileAuthStyles = StyleSheet.create({
   container: {
@@ -32,30 +36,30 @@ export const Header = styled(Box)`
 `
 
 export const HeaderText = styled(Text)`
-  font-size: 20px;
+  font-size: ${Constants.fontSizes.lg};
   font-weight: bold;
 `
 
 export const FormErrorMessage = styled(Text)`
   margin-top: -6px;
   margin-bottom: 10px;
-  color: 'red;
+  color: ${Constants.colors.utility.error};
 `
 
 export const InputContainer = styled(Box)`
   flex-direction: row;
   align-items: center;
   border-width: 1px;
-  border-color: lightGrey;
+  border-color: ${Constants.colors.utility.grey.light};
   border-radius: 5px;
   margin-bottom: 10px;
   width: 100%;
 `
 
 export const InputHelperText = styled(Text)`
-  color: grey;
+  color: ${Constants.colors.utility.grey.medium};
   margin-bottom: 20px;
-  font-size: 12px;
+  font-size: ${Constants.fontSizes.sm};
 `
 
 export const InputLabelText = styled(Text)`
@@ -65,7 +69,7 @@ export const InputLabelText = styled(Text)`
 
 export const CustomInput = styled(Input)`
   flex: 1;
-  font-size: 16px;
+  font-size: ${Constants.fontSizes.md};
 `
 
 export const ShowPasswordButton = styled(TouchableOpacity)`
@@ -90,8 +94,8 @@ export const ForgotPasswordContainer = styled(Box)`
 `
 
 export const ForgotPasswordText = styled(withTouchableText)`
-  color: red;
-  font-size: 12px;
+  color: ${Constants.colors.utility.error};
+  font-size: ${Constants.fontSizes.sm};
   margin-top: 10px;
 `
 
@@ -104,13 +108,12 @@ export const OrDividerContainer = styled(View)`
 export const OrDivider = styled(View)`
   flex: 1;
   height: 1px;
-  background-color: lightGrey;
+  background-color: ${Constants.colors.utility.grey.medium};
 `
 
 export const OrDividerText = styled(Text)`
   padding-horizontal: 10px;
-  font-size: 16px;
-  color: darkGrey;
+  font-size: ${Constants.fontSizes.md};
 `
 
 export const SignupContainer = styled(Box)`
@@ -121,12 +124,13 @@ export const SignupContainer = styled(Box)`
 
 export const SignupText = styled(Text)`
   margin-right: 5px;
-  font-size: 16px;
+  font-size: ${Constants.fontSizes.md};
 `
-
-export const SignupLink = styled(withTouchableText)`
-  color: #007aff;
-  font-size: 16px;
+//this could be changed to use hover, but still needs to be in a text
+//component
+export const SignupLink = styled(Text)`
+  color: ${Constants.colors.brandPrimary.background};
+  font-size: ${Constants.fontSizes.lg};
 `
 
 export const VerticalSpacer = styled(Box)`
