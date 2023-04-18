@@ -63,8 +63,8 @@ export const Constants = {
       darkBackgroundAccent: '#484848'
     },
     brandPrimary: {
-      background: primary[600],
-      hover: primary[700],
+      background: primary[400],
+      hover: primary[300],
       border: 'transparent',
       text: 'white'
     },

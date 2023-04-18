@@ -1,6 +1,7 @@
 import { NextPage, NextPageContext } from 'next'
 import { getSession, useSession } from 'next-auth/react'
 import AccountTopNav from '../components/Nav/AccountTopNav'
+import Clock from '../components/clock/clock'
 // import { Text, Button } from 'shared'
 
 // Start editing here, save and see your changes.
@@ -8,6 +9,7 @@ const Home: NextPage = () => {
   return (
     <div id='home-screen'>
       <AccountTopNav></AccountTopNav>
+      <Clock></Clock>
     </div>
   )
 }

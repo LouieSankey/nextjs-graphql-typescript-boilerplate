@@ -9,6 +9,7 @@ import PricingCard from '../components/pricing/pricingCard'
 import { useScreenSize } from '../hooks/useScreenSize'
 import { getMedia } from '../ui/responsive-css-helpers'
 import { ScreenSize, StripeProduct } from '../sharedUtils/types'
+import { Box } from 'native-base'
 
 interface UpgradeOptionsProps {
   products: StripeProduct[]
@@ -37,7 +38,7 @@ const UpgradeOptions = ({ products, purchaseProduct }: UpgradeOptionsProps) => {
 
 const styled = createStyled(StyleSheet)
 
-const Grid = styled(View)`
+const Grid = styled(Box)`
   height: ${(size: ScreenSize) =>
     getMedia(size, { mobile: '900px', tablet: '900px', desktop: '300px' })};
   display: grid;
